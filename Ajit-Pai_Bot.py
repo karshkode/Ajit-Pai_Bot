@@ -1,5 +1,5 @@
 # Ajit-Pai_Bot
-version="0.08"
+version="0.09"
 
 import pdb
 import re
@@ -15,25 +15,38 @@ import praw # Reddit
 
 # Message Content
 # Positive: Pai supports the comment
-# Negative: Pai dislikes the comment
 positive_adjective = ["exquisite", "magnificent", "breathtaking", "orgasmic", "heartwarming", "perfect", "valiant"] # Generic stuff
 positive_adverb = ["humbly", "sincerely", "truthfully", "from the bottom of my heart"]
 positive_openers = ["My dear", "Good", "Honorable", "Fellow"]
 positive_titles = ["sir,", "redditor,", "patriot,", "hero,", "king among men,"]
 positive_introduction_1 = ["you have been graced by", "I am"]
 positive_introduction_2 = ["the honorable", "the marvelous", "Saint"]
-positive_introduction_3 = ["Ajit Pai", "Ajit \"I have a Reese's Cup\" Pai", "Ajit \"Ajit Pai\" Pai"]
+positive_introduction_3 = ["Ajit Pai.", "Ajit \"I have a Reese's Cup\" Pai.", "Ajit \"Ajit Pai\" Pai.", "Ajit \"Big Mug, Big Shot\" Pai."]
 positive_body_start = ["I commend you for your [ADJECTIVE]", "Thank you for your [ADJECTIVE]", "I completely agree with this [ADJECTIVE]"]
 positive_body_continuation_1 = ["idea.", "wording.", "comment."]
 positive_body_continuation_2 = ["Please,", "I [ADVERB] hope that you", "It is my only wish that you"]
 positive_body_continuation_3 = ["continue spreading this [ADJECTIVE] message.", "keep sharing this message of good will."]
 positive_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 positive_conclusion_2 = ["please do not hesitate to continue this conversation.", "regale me once more with your [ADJECTIVE] thoughts."]
+# Negative: Pai dislikes the comment
+negative_adjective = ["disgusting", "vile", "Satan-esque", "terrible", "nauseating", "sickening", "evil"] # Generic stuff
+negative_adverb = ["humbly", "sincerely", "truthfully", "from the bottom of my heart"]
+negative_titles = ["Evildoer,", "Menace,", "Idiot,", "Libtard", "Asshat"]
+negative_introduction_1 = ["you have been graced by", "I am"]
+negative_introduction_2 = ["the honorable", "the marvelous", "Saint"]
+negative_introduction_3 = ["Ajit Pai.", "Ajit \"I have a Reese's Cup\" Pai.", "Ajit \"Ajit Pai\" Pai.", "Ajit \"Big Mug, Big Shot\" Pai."]
+negative_body_start = ["You should be ashamed of your [ADJECTIVE]", "I became physically ill reading this [ADJECTIVE]", "This is one [ADJECTIVE]"]
+negative_body_continuation_1 = ["idea.", "comment.", "thought."]
+negative_body_continuation_2 = ["Please,", "Although you should be locked in an asylum for these thoughts, I [ADVERB] hope that you", "I am a caring person, so I want you to"]
+negative_body_continuation_3 = ["DELET THIS.", "think long and hard about your [ADJECTIVE] ideas and change them.", "repent."]
+negative_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
+negative_conclusion_2 = ["I wouldn't make yourself known to me,", "you should run away,"]
+negative_conclusion_3 = ["as I would immediately challenge you to a duel (which you'd lose).", "lest I unleash my squadron of ISP security guards upon you.", "unless you'd like to experience the full force of my Reese's Cup rain upon you."]
 
 # List of strings to identify a valid comment to reply to
 netNeutralityKeyStrings = ["net neutrality", "title ii", "title 2", "ajit pai", "michael o'rilley", "fcc"]
 proNetNeutralityStrings = ["free", "support", "open", "consumer", "battleforthenet"]
-antiNetNeutralityStrings = ["repeal", "business", "leftist", "libtard", "oppose"]
+antiNetNeutralityStrings = ["repeal", "business", "leftist", "libtard", "oppose", "cuck"]
 
 # Parse content text and decide to act upon it
 def parseText(comment, body, post):
@@ -58,7 +71,7 @@ def parseText(comment, body, post):
 
 		# Comment is related to net neutrality
 		if any(keyString in str.lower(body) for keytString in netNeutralityKeyStrings):
-		
+
 			# Pro net neutrality scan
 			proNN = 0
 			for word in proNetNeutralityStrings:
