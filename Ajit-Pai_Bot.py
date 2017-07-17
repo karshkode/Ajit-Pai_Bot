@@ -49,7 +49,6 @@ positive = [positive_adjective,
 negative_adjective = ["disgusting", "vile", "Satan-esque", "terrible", "nauseating", "sickening", "evil"] # Generic stuff
 negative_adverb = ["humbly", "sincerely", "truthfully", "from the bottom of my heart"]
 negative_titles = ["Evildoer,", "Menace,", "Idiot,", "Libtard", "Asshat"]
-negative_openers = ["My dear", "Good", "Honorable", "Fellow"]
 negative_introduction_1 = ["you have been graced by", "I am"]
 negative_introduction_2 = ["the honorable", "the marvelous", "Saint"]
 negative_introduction_3 = ["Ajit Pai.", "Ajit \"I have a Reese's Cup\" Pai.", "Ajit \"Ajit Pai\" Pai.", "Ajit \"Big Mug, Big Shot\" Pai."]
@@ -267,7 +266,7 @@ while True:
 			subreddit = reddit.subreddit(subredditName)
 
 			# Parse comments
-			try:	
+			try:
 				for comment in subreddit.comments(limit=100):
 					if comment.author is not None and comment.author != reddit.user.me():
 						rtnVal = parseText(comment, comment.body, False)
