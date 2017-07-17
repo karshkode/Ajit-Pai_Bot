@@ -63,7 +63,7 @@ def replyContent(comment, text):
 	if str(comment.id) in open("replyLog.txt", "r").read():
 		return
 	else:
-		rText = text + "\n\n>I am a bot fighting for Internet rights. You can fight too! [www.keepournetfree.org](http://www.keepournetfree.org/)."
+		rText = text + "\n\n>ajit.pai@fcc.gov\n>202-418-2000)."
 		with open('replyLog.txt', 'a') as replyLog:
 			comment.reply(rText)
 			print("=================================\n")
@@ -134,7 +134,6 @@ def truncateLogFile(logFile):
 
 # Create the reddit instance
 reddit = praw.Reddit('bot1')
-subreddit = reddit.subreddit('KeepOurNetFree')
 
 # Setup the bot feedback interface
 os.system('cls')
@@ -144,6 +143,9 @@ print('logged in as: ', reddit.user.me(), '\n')
 # Setup the bot
 random.seed(a=None)
 configFile = configparser.ConfigParser()
+configFile.read('praw.ini')
+subList = configFile['bot1']['subreddits']
+subreddits = subList.split(",")
 
 # Main program
 while True:
@@ -151,48 +153,49 @@ while True:
 		print('\n')
 		print("------------New Cycle------------\n")
 
-		# Parse comments
-		for comment in subreddit.comments(limit=100):
-			if comment.author is not None and comment.author != reddit.user.me():
-			    if comment.body is not None:
-			    	print("Comment in thread --> ", comment.submission)
-			    	print("By user --> ", comment.author)
-			    	print("Text: ", comment.body)
-			    else:
-			    	print("Text: ", None)
-			    print("Score: ", comment.score)
-			    rtnVal = parseText(comment, comment.body, False)
+		# Cycle through subreddits
+		for subreddit in subreddits:
 
-			    # Kill switch
-			    if rtnVal == False:
-			    	messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the subreddit and this should be investigated immediately."
-			    	reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
-			    	print("Received kill code.  Terminating...")
-			    	exit()
+			# Parse comments
+			for comment in subreddit.comments(limit=100):
+				if comment.author is not None and comment.author != reddit.user.me():
+				    if comment.body is not None:
+				    	print("Comment in thread --> ", comment.submission)
+				    	print("By user --> ", comment.author)
+				    	print("Text: ", comment.body)
+				    else:
+				    	print("Text: ", None)
+				    print("Score: ", comment.score)
+				    rtnVal = parseText(comment, comment.body, False)
 
-		# Parse submisssions
-		for submission in subreddit.new(limit=10):
-			print("Submission in subreddit --> ", subreddit)
-			print("By user --> ", submission.author)
-			print("Title --> ", submission.title)
+				    # Kill switch
+				    if rtnVal == False:
+				    	messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the subreddit and this should be investigated immediately."
+				    	reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
+				    	print("Received kill code.  Terminating...")
+				    	exit()
 
-			# Ignore stickied posts
-			if submission.stickied == True:
-				continue
+			# Parse submisssions
+			for submission in subreddit.new(limit=10):
+				print("Submission in subreddit --> ", subreddit)
+				print("By user --> ", submission.author)
+				print("Title --> ", submission.title)
 
-			if submission.author is not None and submission.author != reddit.user.me():
-				parseText(submission, submission.title, True)
-				if submission.domain.split(".")[0] is not "self":
-					parseText(submission, submission.url, True)
-					print("Link post --> ", submission.url)
-				elif submission.body is not None:
-					parseText(submission, submission.body, True)
-					print("Self post --> ", submission.body)
+				# Ignore stickied posts
+				if submission.stickied == True:
+					continue
 
-			if submission.over_18:
-				removeContent(submission, "Flagged NSFW")
+				if submission.author is not None and submission.author != reddit.user.me():
+					parseText(submission, submission.title, True)
+					if submission.domain.split(".")[0] is not "self":
+						parseText(submission, submission.url, True)
+						print("Link post --> ", submission.url)
+					elif submission.body is not None:
+						parseText(submission, submission.body, True)
+						print("Self post --> ", submission.body)
 
-		time.sleep(30)
+				if submission.over_18:
+					removeContent(submission, "Flagged NSFW")
 
 	except Exception as e:
 		print("---------------------------------\n")
@@ -200,4 +203,5 @@ while True:
 		print(e)
 		print("---------------------------------\n")
 		time.sleep(30)
+
 print("Something went horribly wrong.")
