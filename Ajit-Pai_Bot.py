@@ -10,6 +10,7 @@ import time
 import random
 import re
 import configparser
+import random
 
 import praw # Reddit
 
@@ -28,6 +29,19 @@ positive_body_continuation_2 = ["Please,", "I [ADVERB] hope that you", "It is my
 positive_body_continuation_3 = ["continue spreading this [ADJECTIVE] message.", "keep sharing this message of good will."]
 positive_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 positive_conclusion_2 = ["please do not hesitate to continue this conversation.", "regale me once more with your [ADJECTIVE] thoughts."]
+positive = [positive_adjective,
+			positive_adverb,
+			positive_openers,
+			positive_titles,
+			positive_introduction_1,
+			positive_introduction_2,
+			positive_introduction_3,
+			positive_body_start,
+			positive_body_continuation_1,
+			positive_body_continuation_2,
+			positive_body_continuation_3,
+			positive_conclusion_1,
+			positive_conclusion_2]
 # Negative: Pai dislikes the comment
 negative_adjective = ["disgusting", "vile", "Satan-esque", "terrible", "nauseating", "sickening", "evil"] # Generic stuff
 negative_adverb = ["humbly", "sincerely", "truthfully", "from the bottom of my heart"]
@@ -42,6 +56,19 @@ negative_body_continuation_3 = ["DELET THIS.", "think long and hard about your [
 negative_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 negative_conclusion_2 = ["I wouldn't make yourself known to me,", "you should run away,"]
 negative_conclusion_3 = ["as I would immediately challenge you to a duel (which you'd lose).", "lest I unleash my squadron of ISP security guards upon you.", "unless you'd like to experience the full force of my Reese's Cup rain upon you."]
+negative = [negative_adjective,
+			negative_adverb,
+			negative_openers,
+			negative_titles,
+			negative_introduction_1,
+			negative_introduction_2,
+			negative_introduction_3,
+			negative_body_start,
+			negative_body_continuation_1,
+			negative_body_continuation_2,
+			negative_body_continuation_3,
+			negative_conclusion_1,
+			negative_conclusion_2]
 
 # List of strings to identify a valid comment to reply to
 netNeutralityKeyStrings = ["net neutrality", "title ii", "title 2", "ajit pai", "michael o'rilley", "fcc"]
@@ -84,18 +111,42 @@ def parseText(comment, body, post):
 				if word in str.lower(body):
 					antiNN += 1
 
+			reply = ""
+
 			# Pro net neutrality comment
 			if proNN >= antiNN:
-				pass
+				reply = composeMessage(negative)
 
 			# Anti net neutrality comment
 			else:
-				pass
+				reply = composeMessage(positive)
+
+			replyContent(comment, reply)
 
 	except Exception:
 		pass
 
 	return True
+
+def composeMessage(story_array):
+	story = ""
+	for branch in story_array[2:]:
+		phrase = random.choice(branch)
+		if "[ADJECTIVE]" in phrase:
+			words = phrase.split("[ADJECTIVE]")
+			story += words[0] + " "
+			for word in words[1:]:
+				story += random.choice(story_array[0]) + " "
+				story += word + " "
+		elif "[ADVERB]" in phrase:
+			words = phrase.split("[ADVERB]")
+			story += words[0] + " "
+			for word in words[1:]:
+				story += random.choice(story_array[1]) + " "
+				story += word + " "
+		else:
+			story += phrase + " "
+	return story
 
 # Bot operation functions
 #-------------------------------------------------------------------------------------------------------
