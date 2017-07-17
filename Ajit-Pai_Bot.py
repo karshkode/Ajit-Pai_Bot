@@ -270,10 +270,6 @@ while True:
 				for comment in subreddit.comments(limit=100):
 					if comment.author is not None and comment.author != reddit.user.me():
 						rtnVal = parseText(comment, comment.body, False)
-						if comment.body is not None:
-							print("Comment in thread --> ", comment.submission)
-							print("By user --> ", comment.author)
-							print("Text: ", comment.body)
 
 						# Kill switch
 						if rtnVal == False:
@@ -287,9 +283,6 @@ while True:
 			# Parse submisssions
 			try:
 				for submission in subreddit.new(limit=10):
-					print("Submission in subreddit --> ", subreddit)
-					print("By user --> ", submission.author)
-					print("Title --> ", submission.title)
 
 					# Ignore stickied posts
 					if submission.stickied == True:
