@@ -13,13 +13,6 @@ import configparser
 
 import praw # Reddit
 
-
-# Test shitpost, deprecated
-def testShitpost():
-	"Test shitpost"
-	subreddit.submit('Test Shitpost', selftext='Shitpost test', resubmit=False, send_replies=False)
-	return "Test"
-
 # Parse content text and decide to act upon it
 def parseText(comment, body, post):
 	"Parses the text of a comment and decides"
@@ -35,7 +28,7 @@ def parseText(comment, body, post):
 	#################################################
 	else:
 		pass
-	
+
 	return True
 
 # Bot operation functions
@@ -100,13 +93,6 @@ def hostileCheck(body):
 		return True
 	return False
 
-# Check if a comment branch needs moderation
-def branchCheck(comment):
-	parent = comment.parent()
-	with open('reportLog.txt', 'r') as reportLog:
-		if str(comment.id) in reportLog and str(parent.id) in reportLog:
-			return True
-	return False
 
 # Truncate the log file so the bot doesn't eat itself digging through 9000 lines of logs
 def truncateLogFile(logFile):
@@ -146,7 +132,7 @@ while True:
 	try:
 		print('\n')
 		print("------------New Cycle------------\n")
-		
+
 		# Parse comments
 		for comment in subreddit.comments(limit=100):
 			if comment.author is not None and comment.author != reddit.user.me():
@@ -158,14 +144,14 @@ while True:
 			    	print("Text: ", None)
 			    print("Score: ", comment.score)
 			    rtnVal = parseText(comment, comment.body, False)
-			    
+
 			    # Kill switch
 			    if rtnVal == False:
 			    	messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the subreddit and this should be investigated immediately."
 			    	reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
 			    	print("Received kill code.  Terminating...")
 			    	exit()
-		
+
 		# Parse submisssions
 		for submission in subreddit.new(limit=10):
 			print("Submission in subreddit --> ", subreddit)
