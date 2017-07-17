@@ -46,7 +46,7 @@ def replyContent(comment, text):
 	if str(comment.id) in open("replyLog.txt", "r").read():
 		return
 	else:
-		rText = text + "\n\n>I am a bot fighting for Internet rights. You can fight too! [www.keepournetfree.org](http://www.keepournetfree.org/)."
+		rText = text + "\n\n>ajit.pai@fcc.gov\n>202-418-2000)."
 		with open('replyLog.txt', 'a') as replyLog:
 			comment.reply(rText)
 			print("=================================\n")
