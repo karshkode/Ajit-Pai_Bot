@@ -99,7 +99,7 @@ def replyContent(comment, text):
 	if str(comment.id) in open("replyLog.txt", "r").read():
 		return
 	else:
-		rText = text + "\n\n>ajit.pai@fcc.gov\n>202-418-2000)."
+		rText = text + "\n\n    Ajit Pai - Chairman FCC\n    ajit.pai@fcc.gov\n    (1) 202-418-2000\n^^I am a parody bot."
 		with open('replyLog.txt', 'a') as replyLog:
 			comment.reply(rText)
 			try:
