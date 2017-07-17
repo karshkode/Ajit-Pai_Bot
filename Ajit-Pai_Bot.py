@@ -174,11 +174,14 @@ def replyContent(comment, text):
 	else:
 		rText = text + "\n\n    Ajit Pai - Chairman FCC\n\n    ajit.pai@fcc.gov\n\n    (1) 202-418-2000\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
 		with open('replyLog.txt', 'a') as replyLog:
-			comment.reply(rText)
 			try:
-				print("| Replying to comment: " + comment.body, text)
+				comment.reply(rText)
+				try:
+					print("Replying to comment: " + comment.body + "\n", text)
+				except Exception:
+					print("Replying to post: " + comment.title + "\n", text)
 			except Exception:
-				print("| Replying to post: " + comment.title, text)
+				pass
 			replyLog = open("replyLog.txt", "a")
 			replyLog.write(str(comment.id))
 			replyLog.write("\n")
