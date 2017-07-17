@@ -87,14 +87,17 @@ def parseText(comment, body, post):
 	#################
 	# Kill switch 	#
 	#################
-	if comment.parent().author == reddit.user.me() and "ModBotCode:" in body:
-		killcfg = configparser.ConfigParser()
-		killcfg.read('praw.ini')
-		killcode = killcfg['bot1']['killcode']
+	try:
+		if comment.parent().author == reddit.user.me() and "ModBotCode:" in body:
+			killcfg = configparser.ConfigParser()
+			killcfg.read('praw.ini')
+			killcode = killcfg['bot1']['killcode']
 
-		if body == "ModBotCode:" + killcode and comment.author in killcfg['admins']['admin']:
-			replyContent(comment, "Copy that, I'm super broken! --> Terminating!!!")
-			return False
+			if body == "ModBotCode:" + killcode and comment.author in killcfg['admins']['admin']:
+				replyContent(comment, "Copy that, I'm super broken! --> Terminating!!!")
+				return False
+	except Exception:
+		pass
 
 	#############################################
 	# Parse for potential content to reply to 	#
