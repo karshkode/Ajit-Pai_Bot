@@ -1,5 +1,5 @@
 # Ajit-Pai_Bot
-version="0.01"
+version="0.03"
 
 import pdb
 import re
@@ -12,6 +12,23 @@ import re
 import configparser
 
 import praw # Reddit
+
+# Message Content
+# Positive: Pai supports the comment
+# Negative: Pai dislikes the comment
+positive_adjective = ["exquisite", "magnificent", "breathtaking", "orgasmic", "heartwarming", "perfect", "valiant"] # Generic stuff
+positive_adverb = ["humbly", "sincerely", "truthfully", "from the bottom of my heart"]
+positive_openers = ["My dear", "Good", "Honorable", "Fellow"]
+positive_titles = ["sir,", "redditor,", "patriot,", "hero,", "king among men,"]
+positive_introduction_1 = ["you have been graced by", "I am"]
+positive_introduction_2 = ["the honorable", "the marvelous", "Saint"]
+positive_introduction_3 = ["Ajit Pai", "Ajit \"I have a Reese's Cup\" Pai", "Ajit \"Ajit Pai\" Pai"]
+positive_body_start = ["I commend you for your", "Thank you for your", "I completely agree with this"]
+positive_body_continuation_1 = ["idea.", "wording.", "comment."]
+positive_body_continuation_2 = ["Please,", "I [ADVERB] hope that you", "It is my only wish that you"]
+positive_body_continuation_3 = ["continue spreading this [ADJECTIVE] message.", "keep sharing this message of good will."]
+positive_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
+positive_conclusion_2 = ["please do not hesitate to continue this conversation.", "regale me once more with your [ADJECTIVE] thoughts."]
 
 # Parse content text and decide to act upon it
 def parseText(comment, body, post):
