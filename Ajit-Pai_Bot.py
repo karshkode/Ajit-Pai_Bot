@@ -1,5 +1,5 @@
 # Ajit-Pai_Bot
-version="0.09"
+version="0.10"
 
 import pdb
 import re
@@ -28,6 +28,7 @@ positive_body_continuation_2 = ["Please,", "I [ADVERB] hope that you", "It is my
 positive_body_continuation_3 = ["continue spreading this [ADJECTIVE] message.", "keep sharing this message of good will."]
 positive_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 positive_conclusion_2 = ["please do not hesitate to continue this conversation.", "regale me once more with your [ADJECTIVE] thoughts."]
+
 # Negative: Pai dislikes the comment
 negative_adjective = ["disgusting", "vile", "Satan-esque", "terrible", "nauseating", "sickening", "evil"] # Generic stuff
 negative_adverb = ["humbly", "sincerely", "truthfully", "from the bottom of my heart"]
@@ -202,8 +203,9 @@ while True:
 		print("------------New Cycle------------\n")
 
 		# Cycle through subreddits
-		for subreddit in subreddits:
-
+		for subredditName in subreddits:
+			subreddit = reddit.subreddit(subredditName
+				)
 			# Parse comments
 			for comment in subreddit.comments(limit=100):
 				if comment.author is not None and comment.author != reddit.user.me():
