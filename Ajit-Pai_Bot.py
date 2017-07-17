@@ -1,5 +1,5 @@
 # Ajit-Pai_Bot
-version="0.03"
+version="0.04"
 
 import pdb
 import re
@@ -23,7 +23,7 @@ positive_titles = ["sir,", "redditor,", "patriot,", "hero,", "king among men,"]
 positive_introduction_1 = ["you have been graced by", "I am"]
 positive_introduction_2 = ["the honorable", "the marvelous", "Saint"]
 positive_introduction_3 = ["Ajit Pai", "Ajit \"I have a Reese's Cup\" Pai", "Ajit \"Ajit Pai\" Pai"]
-positive_body_start = ["I commend you for your", "Thank you for your", "I completely agree with this"]
+positive_body_start = ["I commend you for your [ADJECTIVE]", "Thank you for your [ADJECTIVE]", "I completely agree with this [ADJECTIVE]"]
 positive_body_continuation_1 = ["idea.", "wording.", "comment."]
 positive_body_continuation_2 = ["Please,", "I [ADVERB] hope that you", "It is my only wish that you"]
 positive_body_continuation_3 = ["continue spreading this [ADJECTIVE] message.", "keep sharing this message of good will."]
