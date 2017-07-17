@@ -105,7 +105,7 @@ def parseText(comment, body, post):
 	try:
 
 		# Comment is related to net neutrality
-		if any(keyString in str.lower(body) for keytString in netNeutralityKeyStrings):
+		if any(keyString in str.lower(body) for keyString in netNeutralityKeyStrings):
 
 			# Pro net neutrality scan
 			proNN = 0
