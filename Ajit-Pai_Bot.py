@@ -15,6 +15,7 @@ import random
 import praw # Reddit
 
 # Message Content
+
 # Positive: Pai supports the comment
 positive_adjective = ["exquisite", "magnificent", "breathtaking", "orgasmic", "heartwarming", "perfect", "valiant"] # Generic stuff
 positive_adverb = ["humbly", "sincerely", "truthfully", "from the bottom of my heart"]
@@ -29,6 +30,7 @@ positive_body_continuation_2 = ["Please,", "I [ADVERB] hope that you", "It is my
 positive_body_continuation_3 = ["continue spreading this [ADJECTIVE] message.", "keep sharing this message of good will."]
 positive_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 positive_conclusion_2 = ["please do not hesitate to continue this conversation.", "regale me once more with your [ADJECTIVE] thoughts."]
+
 positive = [positive_adjective,
 			positive_adverb,
 			positive_openers,
@@ -42,10 +44,12 @@ positive = [positive_adjective,
 			positive_body_continuation_3,
 			positive_conclusion_1,
 			positive_conclusion_2]
+
 # Negative: Pai dislikes the comment
 negative_adjective = ["disgusting", "vile", "Satan-esque", "terrible", "nauseating", "sickening", "evil"] # Generic stuff
 negative_adverb = ["humbly", "sincerely", "truthfully", "from the bottom of my heart"]
 negative_titles = ["Evildoer,", "Menace,", "Idiot,", "Libtard", "Asshat"]
+positive_openers = ["My dear", "Good", "Honorable", "Fellow"]
 negative_introduction_1 = ["you have been graced by", "I am"]
 negative_introduction_2 = ["the honorable", "the marvelous", "Saint"]
 negative_introduction_3 = ["Ajit Pai.", "Ajit \"I have a Reese's Cup\" Pai.", "Ajit \"Ajit Pai\" Pai.", "Ajit \"Big Mug, Big Shot\" Pai."]
@@ -56,6 +60,7 @@ negative_body_continuation_3 = ["DELET THIS.", "think long and hard about your [
 negative_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 negative_conclusion_2 = ["I wouldn't make yourself known to me,", "you should run away,"]
 negative_conclusion_3 = ["as I would immediately challenge you to a duel (which you'd lose).", "lest I unleash my squadron of ISP security guards upon you.", "unless you'd like to experience the full force of my Reese's Cup rain upon you."]
+
 negative = [negative_adjective,
 			negative_adverb,
 			negative_openers,
