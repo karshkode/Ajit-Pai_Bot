@@ -1,5 +1,5 @@
 class Ajit-Pai_Bot
-version="0.15"
+version="0.16"
 
 import pdb
 import re
@@ -31,7 +31,7 @@ positive_body_continuation_3 = ["continue spreading this [ADJECTIVE] message.", 
 positive_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 positive_conclusion_2 = ["please do not hesitate to continue this conversation.", "regale me once more with your [ADJECTIVE] thoughts."]
 positive_signature = ["\n\nYours truly,", "\n\nYour friend", "\n\nYour lifelong ally,"]
-positive_complete = [""] # TODO: Add something here
+positive_complete = ["Just to be clear, I'm not a professional \"FCC Chairman\". I'm just an ex-Verizon Lawyer who greatly values a closed internet and ISP monopolies over millions of silly comments written by the people I'm supposed to be helping. That being said, I am open to any and all criticism (although I might ignore it and take a sip from my Reese's cup instead).\n\n\"In this moment, I am euphoric.  Not because of any phony internet's freedom. But because, I am enlightened by this [ADJECTIVE] comment.\" - Ajit Pai\n\nEh?~"]
 
 positive = [positive_adjective,
 			positive_adverb,
@@ -129,13 +129,13 @@ def parseText(comment, body, post):
 
 			# Pro net neutrality comment
 			if proNN >= antiNN:
-				reply = composeMessage(negative)
+				reply = generateReply(negative)
 				if random.randint(1,10) == 5:
 					reply += "YOU JUST GOT PIED."
 
 			# Anti net neutrality comment
 			else:
-				reply = composeMessage(positive)
+				reply = generateReply(positive)
 
 			replyContent(comment, reply)
 
@@ -144,27 +144,34 @@ def parseText(comment, body, post):
 
 	return True
 
-def composeMessage(story_array):
-	story = ""
+def generateReply(reply_array):
+	reply = ""
 	if randint(1,20) == 17:
-		return random.choice(story_array[-1])
-	for branch in story_array[2:]:
+		reply = random.choice(reply_array[-1])
+		return parsePhrase(reply, reply_array)
+	for branch in reply_array[2:]:
 		phrase = random.choice(branch)
-		if "[ADJECTIVE]" in phrase:
-			words = phrase.split("[ADJECTIVE]")
-			story += words[0] + " "
-			for word in words[1:]:
-				story += random.choice(story_array[0]) + " "
-				story += word + " "
-		elif "[ADVERB]" in phrase:
-			words = phrase.split("[ADVERB]")
-			story += words[0] + " "
-			for word in words[1:]:
-				story += random.choice(story_array[1]) + " "
-				story += word + " "
-		else:
-			story += phrase + " "
-	return story
+		reply += parsePhrase(phrase, reply_array)
+	return reply
+
+def parsePhrase(phrase, reply_array):
+	parsed_phrase = ""
+	 if "[ADJECTIVE]" in phrase:
+		 words = phrase.split("[ADJECTIVE]")
+		 parsed_phrase += words[0] + " "
+		 for word in words[1:]:
+			 parsed_phrase += random.choice(reply_array[0]) + " "
+			 parsed_phrase += word + " "
+	 elif "[ADVERB]" in phrase:
+		 words = phrase.split("[ADVERB]")
+		 parsed_phrase += words[0] + " "
+		 for word in words[1:]:
+			 parsed_phrase += random.choice(reply_array[1]) + " "
+			 parsed_phrase += word + " "
+	else:
+		parsed_phrase = phrase + " "
+	return parsed_phrase
+
 
 # Bot operation functions
 #-------------------------------------------------------------------------------------------------------
@@ -181,7 +188,11 @@ def replyContent(comment, text):
 	if str(comment.id) in open("replyLog.txt", "r").read():
 		return
 	else:
-		rText = text + "\n\nAjit Pai - Chairman FCC;  ajit.pai@fcc.gov;  (1) 202-418-2000\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
+		rText = ""
+		if text[-1] == '~':
+			rText = text[:-1] + "\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
+		else:
+			rText = text + "\n\nAjit Pai - Chairman FCC;  ajit.pai@fcc.gov;  (1) 202-418-2000\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
 		with open('replyLog.txt', 'a') as replyLog:
 			try:
 				comment.reply(rText)
