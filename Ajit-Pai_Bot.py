@@ -224,13 +224,13 @@ def truncateLogFile(logFile):
 	FILELEN = 100
 
 	with open(logFile) as f:
-	    for i, l in enumerate(f):
-	        pass
-	    lineCount = i + 1
+		for i, l in enumerate(f):
+			pass
+		lineCount = i + 1
 
 	while lineCount > FILELEN:
 		with open(logFile, 'r') as fin:
-		    data = fin.read().splitlines(True)
+			data = fin.read().splitlines(True)
 		with open(logFile, 'w') as fout:
 			fout.writelines(data[1:])
 		lineCount -= 1
@@ -267,18 +267,18 @@ while True:
 			# Parse comments
 			for comment in subreddit.comments(limit=100):
 				if comment.author is not None and comment.author != reddit.user.me():
-				    rtnVal = parseText(comment, comment.body, False)
-				    if comment.body is not None:
-					    print("Comment in thread --> ", comment.submission)
-				    	print("By user --> ", comment.author)
-				    	print("Text: ", comment.body)
+					rtnVal = parseText(comment, comment.body, False)
+					if comment.body is not None:
+						print("Comment in thread --> ", comment.submission)
+						print("By user --> ", comment.author)
+						print("Text: ", comment.body)
 
-				    # Kill switch
-				    if rtnVal == False:
-				    	messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the bot and this should be investigated immediately."
-				    	reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
-				    	print("Received kill code.  Terminating...")
-				    	exit()
+					# Kill switch
+					if rtnVal == False:
+						messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the bot and this should be investigated immediately."
+						reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
+						print("Received kill code.  Terminating...")
+						exit()
 
 			# Parse submisssions
 			for submission in subreddit.new(limit=10):
