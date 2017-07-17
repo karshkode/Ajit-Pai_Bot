@@ -30,6 +30,7 @@ positive_body_continuation_2 = ["Please,", "I [ADVERB] hope that you", "It is my
 positive_body_continuation_3 = ["continue spreading this [ADJECTIVE] message.", "keep sharing this message of good will."]
 positive_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 positive_conclusion_2 = ["please do not hesitate to continue this conversation.", "regale me once more with your [ADJECTIVE] thoughts."]
+positive_signature = ["\n\nYours truly,", "\n\nYour friend", "\n\nYour lifelong ally,"]
 
 positive = [positive_adjective,
 			positive_adverb,
@@ -43,7 +44,8 @@ positive = [positive_adjective,
 			positive_body_continuation_2,
 			positive_body_continuation_3,
 			positive_conclusion_1,
-			positive_conclusion_2]
+			positive_conclusion_2,
+			positive_signature]
 
 # Negative: Pai dislikes the comment
 negative_adjective = ["disgusting", "vile", "Satan-esque", "terrible", "nauseating", "sickening", "evil"] # Generic stuff
@@ -59,6 +61,7 @@ negative_body_continuation_3 = ["DELET THIS.", "think long and hard about your [
 negative_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 negative_conclusion_2 = ["I wouldn't make yourself known to me,", "you should run away,"]
 negative_conclusion_3 = ["as I would immediately challenge you to a duel (which you'd lose).", "lest I unleash my squadron of ISP security guards upon you.", "unless you'd like to experience the full force of my Reese's Cup rain upon you."]
+negative_signature = ["\n\nYour mortal enemy,", "\n\nSincerely,", "\n\nMay you rot in the undrained swamp,"]
 
 negative = [negative_adjective,
 			negative_adverb,
@@ -71,7 +74,8 @@ negative = [negative_adjective,
 			negative_body_continuation_2,
 			negative_body_continuation_3,
 			negative_conclusion_1,
-			negative_conclusion_2]
+			negative_conclusion_2,
+			negative_signature]
 
 # List of strings to identify a valid comment to reply to
 netNeutralityKeyStrings = ["net neutrality", "title ii", "title 2", "ajit pai", "michael o'rilley", "fcc"]
@@ -171,7 +175,7 @@ def replyContent(comment, text):
 	if str(comment.id) in open("replyLog.txt", "r").read():
 		return
 	else:
-		rText = text + "\n\n    Ajit Pai - Chairman FCC\n\n    ajit.pai@fcc.gov\n\n    (1) 202-418-2000\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
+		rText = text + "\n\nAjit Pai - Chairman FCC;  ajit.pai@fcc.gov;  (1) 202-418-2000\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
 		with open('replyLog.txt', 'a') as replyLog:
 			try:
 				comment.reply(rText)
