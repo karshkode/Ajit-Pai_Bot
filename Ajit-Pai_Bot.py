@@ -124,6 +124,8 @@ def parseText(comment, body, post):
 			# Pro net neutrality comment
 			if proNN >= antiNN:
 				reply = composeMessage(negative)
+				if random.randint(1,10) == 5:
+					reply += "YOU JUST GOT PIED."
 
 			# Anti net neutrality comment
 			else:
@@ -171,7 +173,7 @@ def replyContent(comment, text):
 	if str(comment.id) in open("replyLog.txt", "r").read():
 		return
 	else:
-		rText = text + "\n\n    Ajit Pai - Chairman FCC\n    ajit.pai@fcc.gov\n    (1) 202-418-2000\n^^I am a parody bot."
+		rText = text + "\n\n    Ajit Pai - Chairman FCC\n    ajit.pai@fcc.gov\n    (1) 202-418-2000\n^^(I am a parody bot)"
 		with open('replyLog.txt', 'a') as replyLog:
 			comment.reply(rText)
 			try:
