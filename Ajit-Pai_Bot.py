@@ -13,13 +13,6 @@ import configparser
 
 import praw # Reddit
 
-
-# Test shitpost, deprecated
-def testShitpost():
-	"Test shitpost"
-	subreddit.submit('Test Shitpost', selftext='Shitpost test', resubmit=False, send_replies=False)
-	return "Test"
-
 # Parse content text and decide to act upon it
 def parseText(comment, body, post):
 	"Parses the text of a comment and decides"
@@ -35,7 +28,7 @@ def parseText(comment, body, post):
 	#################################################
 	else:
 		pass
-	
+
 	return True
 
 # Bot operation functions
@@ -66,72 +59,6 @@ def replyContent(comment, text):
 			truncateLogFile("replyLog.txt")
 	return
 
-# Reports content for review
-def reportContent(comment, reasons):
-	"Reports content for the moderation queue"
-	if str(comment.id) in open("reportLog.txt", "r").read():
-		return
-	else:
-		reasonstring = "|| "
-		for reason in reasons:
-			reasonstring = reasonstring + reason + " || "
-
-		with open('reportLog.txt', 'a') as reportLog:
-			comment.report(reasonstring)
-			print("=================================\n")
-			print("| Reporting comment: ", comment.id, " for ", reasonstring)
-			print("=================================\n")
-			reportLog = open("reportLog.txt", "a")
-			reportLog.write(str(comment.id))
-			reportLog.write("\n")
-			reportLog.close()
-			truncateLogFile("reportLog.txt")
-	return
-
-# Removes content for violating rules
-def removeContent(comment, reason):
-	"Removes content from the subbreddit"
-	if str(comment.id) in open("removeLog.txt", "r").read():
-		return
-	else:
-		with open('removeLog.txt', 'a') as removeLog:
-			if reason == "SPAM":
-				comment.mod.remove(spam=True)
-			else:
-				comment.mod.remove(spam=False)
-			replyContent(comment, "Your comment was removed from /r/KeepOurNetFree.\n\nReason cited: " + reason)
-			print("=================================\n")
-			print("| Removing comment: ", comment.id, " for ", reason)
-			print("=================================\n")
-			removeLog = open("removeLog.txt", "a")
-			removeLog.write(str(comment.id))
-			removeLog.write("\n")
-			removeLog.close()
-			truncateLogFile("removeLog.txt")
-	return
-
-# Removes content silently
-def shadowRemoveContent(comment, reason):
-	"Removes content from the subbreddit without replying to it"
-	if str(comment.id) in open("removeLog.txt", "r").read():
-		return
-	else:
-		with open('removeLog.txt', 'a') as removeLog:
-			if reason == "SPAM":
-				comment.mod.remove(spam=True)
-			else:
-				comment.mod.remove(spam=False)
-			reason = reason + " /--SHADOW--\\"
-			print("=================================\n")
-			print("| Removing comment: ", comment.id, " for ", reason)
-			print("=================================\n")
-			removeLog = open("removeLog.txt", "a")
-			removeLog.write(str(comment.id))
-			removeLog.write("\n")
-			removeLog.close()
-			truncateLogFile("removeLog.txt")
-	return
-
 # Check if content is in a hostile tone
 def hostileCheck(body):
 	"Checks for hostility in content body"
@@ -144,13 +71,6 @@ def hostileCheck(body):
 		return True
 	return False
 
-# Check if a comment branch needs moderation
-def branchCheck(comment):
-	parent = comment.parent()
-	with open('reportLog.txt', 'r') as reportLog:
-		if str(comment.id) in reportLog and str(parent.id) in reportLog:
-			return True
-	return False
 
 # Truncate the log file so the bot doesn't eat itself digging through 9000 lines of logs
 def truncateLogFile(logFile):
@@ -191,7 +111,7 @@ while True:
 	try:
 		print('\n')
 		print("------------New Cycle------------\n")
-		
+
 		# Parse comments
 		for comment in subreddit.comments(limit=100):
 			if comment.author is not None and comment.author != reddit.user.me():
@@ -203,14 +123,14 @@ while True:
 			    	print("Text: ", None)
 			    print("Score: ", comment.score)
 			    rtnVal = parseText(comment, comment.body, False)
-			    
+
 			    # Kill switch
 			    if rtnVal == False:
 			    	messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the subreddit and this should be investigated immediately."
 			    	reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
 			    	print("Received kill code.  Terminating...")
 			    	exit()
-		
+
 		# Parse submisssions
 		for submission in subreddit.new(limit=10):
 			print("Submission in subreddit --> ", subreddit)
