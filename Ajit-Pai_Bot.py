@@ -48,6 +48,7 @@ positive = [positive_adjective,
 # Negative: Pai dislikes the comment
 negative_adjective = ["disgusting", "vile", "Satan-esque", "terrible", "nauseating", "sickening", "evil"] # Generic stuff
 negative_adverb = ["humbly", "sincerely", "truthfully", "from the bottom of my heart"]
+negative_openers = ["My dear", "Good", "Honorable", "Fellow"]
 negative_titles = ["Evildoer,", "Menace,", "Idiot,", "Libtard", "Asshat"]
 negative_introduction_1 = ["you have been graced by", "I am"]
 negative_introduction_2 = ["the honorable", "the marvelous", "Saint"]
