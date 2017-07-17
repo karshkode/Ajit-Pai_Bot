@@ -59,6 +59,28 @@ def replyContent(comment, text):
 			truncateLogFile("replyLog.txt")
 	return
 
+# Reports content for review
+def reportContent(comment, reasons):
+	"Reports content for the moderation queue"
+	if str(comment.id) in open("reportLog.txt", "r").read():
+		return
+	else:
+		reasonstring = "|| "
+		for reason in reasons:
+			reasonstring = reasonstring + reason + " || "
+
+		with open('reportLog.txt', 'a') as reportLog:
+			comment.report(reasonstring)
+			print("=================================\n")
+			print("| Reporting comment: ", comment.id, " for ", reasonstring)
+			print("=================================\n")
+			reportLog = open("reportLog.txt", "a")
+			reportLog.write(str(comment.id))
+			reportLog.write("\n")
+			reportLog.close()
+			truncateLogFile("reportLog.txt")
+	return
+
 # Check if content is in a hostile tone
 def hostileCheck(body):
 	"Checks for hostility in content body"
