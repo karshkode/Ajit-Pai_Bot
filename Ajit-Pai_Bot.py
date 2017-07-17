@@ -1,5 +1,5 @@
 # Ajit-Pai_Bot
-version="0.01"
+version="0.02"
 
 import pdb
 import re
@@ -88,50 +88,6 @@ def reportContent(comment, reasons):
 			truncateLogFile("reportLog.txt")
 	return
 
-# Removes content for violating rules
-def removeContent(comment, reason):
-	"Removes content from the subbreddit"
-	if str(comment.id) in open("removeLog.txt", "r").read():
-		return
-	else:
-		with open('removeLog.txt', 'a') as removeLog:
-			if reason == "SPAM":
-				comment.mod.remove(spam=True)
-			else:
-				comment.mod.remove(spam=False)
-			replyContent(comment, "Your comment was removed from /r/KeepOurNetFree.\n\nReason cited: " + reason)
-			print("=================================\n")
-			print("| Removing comment: ", comment.id, " for ", reason)
-			print("=================================\n")
-			removeLog = open("removeLog.txt", "a")
-			removeLog.write(str(comment.id))
-			removeLog.write("\n")
-			removeLog.close()
-			truncateLogFile("removeLog.txt")
-	return
-
-# Removes content silently
-def shadowRemoveContent(comment, reason):
-	"Removes content from the subbreddit without replying to it"
-	if str(comment.id) in open("removeLog.txt", "r").read():
-		return
-	else:
-		with open('removeLog.txt', 'a') as removeLog:
-			if reason == "SPAM":
-				comment.mod.remove(spam=True)
-			else:
-				comment.mod.remove(spam=False)
-			reason = reason + " /--SHADOW--\\"
-			print("=================================\n")
-			print("| Removing comment: ", comment.id, " for ", reason)
-			print("=================================\n")
-			removeLog = open("removeLog.txt", "a")
-			removeLog.write(str(comment.id))
-			removeLog.write("\n")
-			removeLog.close()
-			truncateLogFile("removeLog.txt")
-	return
-
 # Check if content is in a hostile tone
 def hostileCheck(body):
 	"Checks for hostility in content body"
@@ -184,7 +140,6 @@ print('logged in as: ', reddit.user.me(), '\n')
 
 # Setup the bot
 random.seed(a=None)
-configFile = configparser.ConfigParser()
 
 # Main program
 while True:
