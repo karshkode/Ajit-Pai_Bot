@@ -1,5 +1,5 @@
 # Ajit-Pai_Bot
-version="0.06"
+version="0.08"
 
 import pdb
 import re
@@ -30,6 +30,11 @@ positive_body_continuation_3 = ["continue spreading this [ADJECTIVE] message.", 
 positive_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 positive_conclusion_2 = ["please do not hesitate to continue this conversation.", "regale me once more with your [ADJECTIVE] thoughts."]
 
+# List of strings to identify a valid comment to reply to
+netNeutralityKeyStrings = ["net neutrality", "title ii", "title 2", "ajit pai", "michael o'rilley", "fcc"]
+proNetNeutralityStrings = ["free", "support", "open", "consumer", "battleforthenet"]
+antiNetNeutralityStrings = ["repeal", "business", "leftist", "libtard", "oppose"]
+
 # Parse content text and decide to act upon it
 def parseText(comment, body, post):
 	"Parses the text of a comment and decides"
@@ -50,14 +55,29 @@ def parseText(comment, body, post):
 	# Parse for potential content to reply to 	#
 	#############################################
 	try:
-		
-		# Pro net neutrality comment
-		if "" in body:
-			pass
 
-		# Anti net neutrality comment
-		elif "" in body:
-			pass
+		# Comment is related to net neutrality
+		if any(keyString in str.lower(body) for keytString in netNeutralityKeyStrings):
+		
+			# Pro net neutrality scan
+			proNN = 0
+			for word in proNetNeutralityStrings:
+				if word in str.lower(body):
+					proNN += 1
+
+			# Anti net neutrality scan
+			antiNN = 0
+			for word in antiNetNeutralityStrings:
+				if word in str.lower(body):
+					antiNN += 1
+
+			# Pro net neutrality comment
+			if proNN >= antiNN:
+				pass
+
+			# Anti net neutrality comment
+			else:
+				pass
 
 	except Exception:
 		pass
