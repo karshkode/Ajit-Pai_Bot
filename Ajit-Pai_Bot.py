@@ -1,5 +1,5 @@
 # Ajit-Pai_Bot
-version="0.05"
+version="0.06"
 
 import pdb
 import re
@@ -34,17 +34,43 @@ positive_conclusion_2 = ["please do not hesitate to continue this conversation."
 def parseText(comment, body, post):
 	"Parses the text of a comment and decides"
 
+	#################
+	# Kill switch 	#
+	#################
+	if comment.parent().author == reddit.user.me() and "ModBotCode:" in body:
+		killcfg = configparser.ConfigParser()
+		killcfg.read('praw.ini')
+		killcode = killcfg['bot1']['killcode']
+
+		if body == "ModBotCode:" + killcode and comment.author in killcfg['admins']['admin']:
+			replyContent(comment, "Copy that, I'm super broken! --> Terminating!!!")
+			return False
+
 	#############################################
 	# Parse for potential comments to reply to 	#
 	#############################################
 	if not post:
-		pass
+		
+		# Pro net neutrality comment
+		if "" in body:
+			pass
+
+		# Anti net neutrality comment
+		elif "" in body:
+			pass
 
 	#################################################
 	# Parse for potential submissions to reply to 	#
 	#################################################
 	else:
-		pass
+
+		# Pro net neutrality post
+		if "" in body:
+			pass
+
+		# Anti net neutrality post
+		elif "" in body:
+			pass
 
 	return True
 
