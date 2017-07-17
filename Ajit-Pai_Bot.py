@@ -47,9 +47,9 @@ def parseText(comment, body, post):
 			return False
 
 	#############################################
-	# Parse for potential comments to reply to 	#
+	# Parse for potential content to reply to 	#
 	#############################################
-	if not post:
+	try:
 		
 		# Pro net neutrality comment
 		if "" in body:
@@ -59,18 +59,8 @@ def parseText(comment, body, post):
 		elif "" in body:
 			pass
 
-	#################################################
-	# Parse for potential submissions to reply to 	#
-	#################################################
-	else:
-
-		# Pro net neutrality post
-		if "" in body:
-			pass
-
-		# Anti net neutrality post
-		elif "" in body:
-			pass
+	except Exception:
+		pass
 
 	return True
 
