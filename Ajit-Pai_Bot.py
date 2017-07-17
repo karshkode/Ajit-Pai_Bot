@@ -1,5 +1,5 @@
-# Ajit-Pai_Bot
-version="0.14"
+class Ajit-Pai_Bot
+version="0.15"
 
 import pdb
 import re
@@ -31,6 +31,7 @@ positive_body_continuation_3 = ["continue spreading this [ADJECTIVE] message.", 
 positive_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet again"]
 positive_conclusion_2 = ["please do not hesitate to continue this conversation.", "regale me once more with your [ADJECTIVE] thoughts."]
 positive_signature = ["\n\nYours truly,", "\n\nYour friend", "\n\nYour lifelong ally,"]
+positive_complete = [""] # TODO: Add something here
 
 positive = [positive_adjective,
 			positive_adverb,
@@ -45,7 +46,8 @@ positive = [positive_adjective,
 			positive_body_continuation_3,
 			positive_conclusion_1,
 			positive_conclusion_2,
-			positive_signature]
+			positive_signature,
+			positive_complete]
 
 # Negative: Pai dislikes the comment
 negative_adjective = ["disgusting", "vile", "Satan-esque", "terrible", "nauseating", "sickening", "evil"] # Generic stuff
@@ -62,6 +64,7 @@ negative_conclusion_1 = ["If you ever chance upon me IRL,", "Should we meet agai
 negative_conclusion_2 = ["I wouldn't make yourself known to me,", "you should run away,"]
 negative_conclusion_3 = ["as I would immediately challenge you to a duel (which you'd lose).", "lest I unleash my squadron of ISP security guards upon you.", "unless you'd like to experience the full force of my Reese's Cup rain upon you."]
 negative_signature = ["\n\nYour mortal enemy,", "\n\nSincerely,", "\n\nMay you rot in the undrained swamp,"]
+negative_complete = ["I'd just like to interject for a moment. What you're referring to as Net Neutrality, is in fact, Title II/Net Neutrality, or as I've recently taken to calling it, Title II plus Net Neutrality.  Net Neutrality is not a system of regulations unto itself, but rather another component of a fully functioning Title II system made useful by the FCC, ISPs, and other government agencies comprising a full regulatory system as defined by myself.\n\nMany people rely on the Title II system every day, without realizing it.  Through a peculiar turn of events, the version of Title II which is widely discussed today is often called \"Net Neutrality\", and many of its supporters are not aware that it is basically the Title II regulations, developed by the FCC.\n\nThere really is Net Neutrality, and these people are using it, but it is just a part of the Internet they use.  Net Neutrality is the idea, the principle in the regulations that tells ISPs to treat all internet services the same. The principle is an essential part of Title II, but useless by itself; it can only function in the context of a complete regulatory system. Net Neutrality is normally used in combination with the Title II regulations: all of the regulations are basically Title II with Net Neutrality added, or Title II/Net Neutrality.  All the so-called \"Net Neutrality\" regulations are really regulations of Title II/Net Neutrality.\n\nSincerely,"]
 
 negative = [negative_adjective,
 			negative_adverb,
@@ -75,7 +78,8 @@ negative = [negative_adjective,
 			negative_body_continuation_3,
 			negative_conclusion_1,
 			negative_conclusion_2,
-			negative_signature]
+			negative_signature,
+			negative_complete]
 
 # List of strings to identify a valid comment to reply to
 netNeutralityKeyStrings = ["net neutrality", "title ii", "title 2", "ajit pai", "michael o'rilley", "fcc"]
@@ -142,6 +146,8 @@ def parseText(comment, body, post):
 
 def composeMessage(story_array):
 	story = ""
+	if randint(1,20) == 17:
+		return random.choice(story_array[-1])
 	for branch in story_array[2:]:
 		phrase = random.choice(branch)
 		if "[ADJECTIVE]" in phrase:
