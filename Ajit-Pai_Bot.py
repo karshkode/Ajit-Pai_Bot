@@ -1,5 +1,5 @@
 # Ajit-Pai_Bot
-version="0.09"
+version="0.11"
 
 import pdb
 import re
@@ -253,8 +253,9 @@ while True:
 		print("------------New Cycle------------\n")
 
 		# Cycle through subreddits
-		for subreddit in subreddits:
-
+		for subredditName in subreddits:
+			subreddit = reddit.subreddit(subredditName
+				)
 			# Parse comments
 			for comment in subreddit.comments(limit=100):
 				if comment.author is not None and comment.author != reddit.user.me():
