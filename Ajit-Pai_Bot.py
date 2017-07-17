@@ -1,5 +1,5 @@
 # Ajit-Pai_Bot
-version="0.13"
+version="0.14"
 
 import pdb
 import re
@@ -172,7 +172,7 @@ def replyContent(comment, text):
 	if str(comment.id) in open("replyLog.txt", "r").read():
 		return
 	else:
-		rText = text + "\n\n    Ajit Pai - Chairman FCC\n    ajit.pai@fcc.gov\n    (1) 202-418-2000\n^^(I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist.)"
+		rText = text + "\n\n    Ajit Pai - Chairman FCC\n    ajit.pai@fcc.gov\n    (1) 202-418-2000\n^^I ^^am ^^a ^^parody ^^bot. ^^Feel ^^free ^^to ^^block ^^me, ^^or ^^[PM ^^me](https://www.reddit.com/message/compose/?to=Ajit-Pai) ^^to ^^add ^^your ^^subreddit ^^to ^^my ^^blacklist.)"
 		with open('replyLog.txt', 'a') as replyLog:
 			comment.reply(rText)
 			try:
