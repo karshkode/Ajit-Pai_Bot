@@ -15,6 +15,10 @@ import random
 import praw # Reddit
 
 # Message Content
+# FORMATTING:
+# [ADJECTIVE]: Replace with adjective from the _adjective array
+# [ADVERB]: Replace with adverb from the _adverb array
+# ~: Only include bot message in signature (ie don't give contact details)
 
 # Positive: Pai supports the comment
 positive_adjective = ["exquisite", "magnificent", "breathtaking", "orgasmic", "heartwarming", "perfect", "valiant"] # Generic stuff
@@ -188,6 +192,7 @@ def replyContent(comment, text):
 	if str(comment.id) in open("replyLog.txt", "r").read():
 		return
 	else:
+		text = text[:-1]
 		rText = ""
 		if text[-1] == '~':
 			rText = text[:-1] + "\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
