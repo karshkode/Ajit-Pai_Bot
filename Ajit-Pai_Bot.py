@@ -1,5 +1,4 @@
-class Ajit-Pai_Bot
-version="0.17"
+version="0.18"
 
 import pdb
 import re
