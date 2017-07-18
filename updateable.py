@@ -74,5 +74,6 @@ netNeutralityKeyStrings = ["net neutrality", "title ii", "title 2", "ajit pai", 
 proNetNeutralityStrings = ["free", "support", "open", "consumer", "battleforthenet"]
 antiNetNeutralityStrings = ["repeal", "business", "leftist", "libtard", "oppose", "cuck"]
 
-# Subreddits
+# Misc
 subreddits = ["BotShitposts", "KONFTesting"]
+admins = ["DailyDoseOfAwesome", "phi11ipus"]

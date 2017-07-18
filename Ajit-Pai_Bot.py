@@ -1,4 +1,4 @@
-version="0.19"
+version="0.20"
 
 import pdb
 import re
@@ -10,6 +10,8 @@ import random
 import re
 import configparser
 import random
+
+from subprocess import call
 
 import importlib
 import updateable
@@ -256,6 +258,8 @@ while True:
 					if message.author.name in updateable.admins and "UPDATE" in message.body:
 						print("Recieved update command from " + updateable.admins + "...")
 						try:
+							print("Pulling repository...")
+							call("git pull")
 							importlib.reload(updateable)
 							message.reply("Successfully updated!")
 							print("Successfully updated!")
