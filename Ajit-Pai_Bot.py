@@ -159,7 +159,7 @@ def generateReply(reply_array):
 
 def parsePhrase(phrase, reply_array):
 	parsed_phrase = ""
-	 if "[ADJECTIVE]" in phrase:
+	if "[ADJECTIVE]" in phrase:
 		 words = phrase.split("[ADJECTIVE]")
 		 parsed_phrase += words[0] + " "
 		 for word in words[1:]:
