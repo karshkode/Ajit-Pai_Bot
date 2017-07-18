@@ -160,17 +160,17 @@ def generateReply(reply_array):
 def parsePhrase(phrase, reply_array):
 	parsed_phrase = ""
 	if "[ADJECTIVE]" in phrase:
-		 words = phrase.split("[ADJECTIVE]")
-		 parsed_phrase += words[0] + " "
-		 for word in words[1:]:
-			 parsed_phrase += random.choice(reply_array[0]) + " "
-			 parsed_phrase += word + " "
-	 elif "[ADVERB]" in phrase:
-		 words = phrase.split("[ADVERB]")
-		 parsed_phrase += words[0] + " "
-		 for word in words[1:]:
-			 parsed_phrase += random.choice(reply_array[1]) + " "
-			 parsed_phrase += word + " "
+		words = phrase.split("[ADJECTIVE]")
+		parsed_phrase += words[0] + " "
+		for word in words[1:]:
+			parsed_phrase += random.choice(reply_array[0]) + " "
+			parsed_phrase += word + " "
+	elif "[ADVERB]" in phrase:
+		words = phrase.split("[ADVERB]")
+		parsed_phrase += words[0] + " "
+		for word in words[1:]:
+			parsed_phrase += random.choice(reply_array[1]) + " "
+			parsed_phrase += word + " "
 	else:
 		parsed_phrase = phrase + " "
 	return parsed_phrase
