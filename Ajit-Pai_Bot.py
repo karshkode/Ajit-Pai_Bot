@@ -74,10 +74,12 @@ def parseText(comment, body, post):
 				print("anti nn comment")
 				reply = generateReply(paibot.positive)
 
+			print "calling reply function"
 			replyContent(comment, reply)
 
-	except Exception:
-		pass
+	except Exception as e:
+		print(e)
+		#pass
 
 	return True
 
@@ -122,6 +124,9 @@ def throwException(title, string):
 # Reply to content function
 def replyContent(comment, text):
 	"Replys to content"
+
+	print("In the replyContent() function")
+
 	if str(comment.id) in open("replyLog.txt", "r").read():
 		print("comment already replied to")
 		return
