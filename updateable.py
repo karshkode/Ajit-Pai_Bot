@@ -146,3 +146,5 @@ class updateable:
 	# Misc
 	subreddits = []
 	admins = []
+
+	self.readConfig()
