@@ -1,4 +1,4 @@
-version="0.22"
+version="0.23"
 
 import pdb
 import re
@@ -256,7 +256,7 @@ while True:
 		# Parse for paibot
 		for message in reddit.inbox.messages(limit=10):
 			if message.author.name in paibot.admins and "UPDATE" in message.body:
-				print("Recieved update command from " + paibot.admins + "...")
+				print("Recieved update command from " + message.author.name + "...")
 				try:
 					print("Pulling repository...")
 					call("git pull")
