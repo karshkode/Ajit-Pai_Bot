@@ -2,78 +2,78 @@ import configparser
 
 class updateable:
 
-		positive_adjective = []
-		positive_adverb = []
-		positive_openers = []
-		positive_titles = []
-		positive_introduction_1 = []
-		positive_introduction_2 = []
-		positive_introduction_3 = []
-		positive_body_start = []
-		positive_body_continuation_1 = []
-		positive_body_continuation_2 = []
-		positive_body_continuation_3 = []
-		positive_conclusion_1 = []
-		positive_conclusion_2 = []
-		positive_signature = []
-		positive_complete = []
+	positive_adjective = []
+	positive_adverb = []
+	positive_openers = []
+	positive_titles = []
+	positive_introduction_1 = []
+	positive_introduction_2 = []
+	positive_introduction_3 = []
+	positive_body_start = []
+	positive_body_continuation_1 = []
+	positive_body_continuation_2 = []
+	positive_body_continuation_3 = []
+	positive_conclusion_1 = []
+	positive_conclusion_2 = []
+	positive_signature = []
+	positive_complete = []
 
-		positive = [positive_adjective,
-					positive_adverb,
-					positive_openers,
-					positive_titles,
-					positive_introduction_1,
-					positive_introduction_2,
-					positive_introduction_3,
-					positive_body_start,
-					positive_body_continuation_1,
-					positive_body_continuation_2,
-					positive_body_continuation_3,
-					positive_conclusion_1,
-					positive_conclusion_2,
-					positive_signature,
-					positive_complete]
+	positive = [positive_adjective,
+				positive_adverb,
+				positive_openers,
+				positive_titles,
+				positive_introduction_1,
+				positive_introduction_2,
+				positive_introduction_3,
+				positive_body_start,
+				positive_body_continuation_1,
+				positive_body_continuation_2,
+				positive_body_continuation_3,
+				positive_conclusion_1,
+				positive_conclusion_2,
+				positive_signature,
+				positive_complete]
 
-		# Negative: Pai dislikes the comment
-		negative_adjective = []
-		negative_adverb = []
-		negative_titles = []
-		negative_introduction_1 = []
-		negative_introduction_2 = []
-		negative_introduction_3 = []
-		negative_body_start = []
-		negative_body_continuation_1 = []
-		negative_body_continuation_2 = []
-		negative_body_continuation_3 = []
-		negative_conclusion_1 = []
-		negative_conclusion_2 = []
-		negative_conclusion_3 = []
-		negative_signature =  []
-		negative_complete = []
+	# Negative: Pai dislikes the comment
+	negative_adjective = []
+	negative_adverb = []
+	negative_titles = []
+	negative_introduction_1 = []
+	negative_introduction_2 = []
+	negative_introduction_3 = []
+	negative_body_start = []
+	negative_body_continuation_1 = []
+	negative_body_continuation_2 = []
+	negative_body_continuation_3 = []
+	negative_conclusion_1 = []
+	negative_conclusion_2 = []
+	negative_conclusion_3 = []
+	negative_signature =  []
+	negative_complete = []
 
-		negative = [negative_adjective,
-					negative_adverb,
-					negative_titles,
-					negative_introduction_1,
-					negative_introduction_2,
-					negative_introduction_3,
-					negative_body_start,
-					negative_body_continuation_1,
-					negative_body_continuation_2,
-					negative_body_continuation_3,
-					negative_conclusion_1,
-					negative_conclusion_2,
-					negative_signature,
-					negative_complete]
+	negative = [negative_adjective,
+				negative_adverb,
+				negative_titles,
+				negative_introduction_1,
+				negative_introduction_2,
+				negative_introduction_3,
+				negative_body_start,
+				negative_body_continuation_1,
+				negative_body_continuation_2,
+				negative_body_continuation_3,
+				negative_conclusion_1,
+				negative_conclusion_2,
+				negative_signature,
+				negative_complete]
 
-		# List of strings to identify a valid comment to reply to
-		netNeutralityKeyStrings = []
-		proNetNeutralityStrings = []
-		antiNetNeutralityStrings = []
+	# List of strings to identify a valid comment to reply to
+	netNeutralityKeyStrings = []
+	proNetNeutralityStrings = []
+	antiNetNeutralityStrings = []
 
-		# Misc
-		subreddits = []
-		admins = []
+	# Misc
+	subreddits = []
+	admins = []
 
 	# Constructor
 	def __init__(self):
