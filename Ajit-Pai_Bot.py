@@ -123,8 +123,10 @@ def throwException(title, string):
 def replyContent(comment, text):
 	"Replys to content"
 	if str(comment.id) in open("replyLog.txt", "r").read():
+		print("comment already replied to")
 		return
 	else:
+		print("I'm gonna reply!")
 		text = text[:-1]
 		rText = ""
 		if text[-1] == '~':
@@ -132,6 +134,7 @@ def replyContent(comment, text):
 		else:
 			rText = text + "\n\nAjit Pai - Chairman FCC;  ajit.pai@fcc.gov;  (1) 202-418-2000\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
 		with open('replyLog.txt', 'a') as replyLog:
+			print("I'm replying!!!!!")
 			comment.reply(rText)
 			try:
 				print("Replying to comment: " + comment.body + "\n", text)
@@ -267,9 +270,10 @@ while True:
 					importlib.reload(updateable)
 					message.reply("Successfully updated!")
 					print("Successfully updated!")
-				except Exception:
+				except Exception as e:
 					message.reply("Error updating!")
 					print("Error updating!")
+					print(e)
 				break
 
 	except Exception as e:
