@@ -85,7 +85,7 @@ def parseText(comment, body, post):
 
 def generateReply(reply_array):
 	reply = ""
-	if randint(1,20) == 17:
+	if random.randint(1,20) == 17:
 		reply = random.choice(reply_array[-1])
 		return parsePhrase(reply, reply_array)
 	for branch in reply_array[2:]:
