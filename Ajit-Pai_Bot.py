@@ -1,4 +1,4 @@
-version="0.21"
+version="0.22"
 
 import pdb
 import re
@@ -206,7 +206,7 @@ print('logged in as: ', reddit.user.me(), '\n')
 random.seed(a=None)
 configFile = configparser.ConfigParser()
 configFile.read('praw.ini')
-paibot = updateable()
+paibot = updateable.updateable()
 
 
 # Main program
