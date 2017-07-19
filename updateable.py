@@ -5,7 +5,85 @@ class updateable:
 	# Constructor
 	def __init__(self):
 		self.readConfig()
-		return
+		# Message Content
+		# FORMATTING:
+		# [ADJECTIVE]: Replace with adjective from the _adjective array
+		# [ADVERB]: Replace with adverb from the _adverb array
+		# ~: Only include bot message in signature (ie don't give contact details)
+
+		# Positive: Pai supports the comment
+		self.positive_adjective = []
+		self.self.positive_adverb = []
+		self.positive_openers = []
+		self.positive_titles = []
+		self.positive_introduction_1 = []
+		self.positive_introduction_2 = []
+		self.positive_introduction_3 = []
+		self.positive_body_start = []
+		self.positive_body_continuation_1 = []
+		self.positive_body_continuation_2 = []
+		self.positive_body_continuation_3 = []
+		self.positive_conclusion_1 = []
+		self.self.positive_conclusion_2 = []
+		self.self.positive_signature = []
+		self.positive_complete = []
+
+		self.positive = [positive_adjective,
+					positive_adverb,
+					positive_openers,
+					positive_titles,
+					positive_introduction_1,
+					positive_introduction_2,
+					positive_introduction_3,
+					positive_body_start,
+					positive_body_continuation_1,
+					positive_body_continuation_2,
+					positive_body_continuation_3,
+					positive_conclusion_1,
+					positive_conclusion_2,
+					positive_signature,
+					positive_complete]
+
+		# Negative: Pai dislikes the comment
+		self.negative_adjective = []
+		self.negative_adverb = []
+		self.negative_titles = []
+		self.negative_introduction_1 = []
+		self.negative_introduction_2 = []
+		self.negative_introduction_3 = []
+		self.negative_body_start = []
+		self.negative_body_continuation_1 = []
+		self.negative_body_continuation_2 = []
+		self.negative_body_continuation_3 = []
+		self.negative_conclusion_1 = []
+		self.negative_conclusion_2 = []
+		self.negative_conclusion_3 = []
+		self.self.negative_signature =  []
+		self.negative_complete = []
+
+		self.negative = [negative_adjective,
+					negative_adverb,
+					negative_titles,
+					negative_introduction_1,
+					negative_introduction_2,
+					negative_introduction_3,
+					negative_body_start,
+					negative_body_continuation_1,
+					negative_body_continuation_2,
+					negative_body_continuation_3,
+					negative_conclusion_1,
+					negative_conclusion_2,
+					negative_signature,
+					negative_complete]
+
+		# List of strings to identify a valid comment to reply to
+		self.netNeutralityKeyStrings = []
+		self.proNetNeutralityStrings = []
+		self.antiNetNeutralityStrings = []
+
+		# Misc
+		self.subreddits = []
+		self.admins = []
 
 	# Destructor
 	def __del__(self):
@@ -24,130 +102,46 @@ class updateable:
 		print(positive_adjective)
 
 		# Positive: Pai supports the comment
-		positive_adjective = cfg['paibot']['positive_adjective'].split("|")
-		positive_adverb = cfg['paibot']['positive_adverb'].split("|")
-		positive_openers = cfg['paibot']['positive_openers'].split("|")
-		positive_titles = cfg['paibot']['positive_titles'].split("|")
-		positive_introduction_1 = cfg['paibot']['positive_introduction_1'].split("|")
-		positive_introduction_2 = cfg['paibot']['positive_introduction_2'].split("|")
-		positive_introduction_3 = cfg['paibot']['positive_introduction_3'].split("|")
-		positive_body_start = cfg['paibot']['positive_body_start'].split("|")
-		positive_body_continuation_1 = cfg['paibot']['positive_body_continuation_1'].split("|")
-		positive_body_continuation_2 = cfg['paibot']['positive_body_continuation_2'].split("|")
-		positive_body_continuation_3 = cfg['paibot']['positive_body_continuation_3'].split("|")
-		positive_conclusion_1 = cfg['paibot']['positive_conclusion_1'].split("|")
-		positive_conclusion_2 = cfg['paibot']['positive_conclusion_2'].split("|")
-		positive_signature = cfg['paibot']['positive_signature'].split("|")
-		positive_complete = cfg['paibot']['positive_complete'].split("|")
+		self.positive_adjective = cfg['paibot']['positive_adjective'].split("|")
+		self.positive_adverb = cfg['paibot']['positive_adverb'].split("|")
+		self.positive_openers = cfg['paibot']['positive_openers'].split("|")
+		self.positive_titles = cfg['paibot']['positive_titles'].split("|")
+		self.positive_introduction_1 = cfg['paibot']['positive_introduction_1'].split("|")
+		self.positive_introduction_2 = cfg['paibot']['positive_introduction_2'].split("|")
+		self.positive_introduction_3 = cfg['paibot']['positive_introduction_3'].split("|")
+		self.self.positive_body_start = cfg['paibot']['positive_body_start'].split("|")
+		self.positive_body_continuation_1 = cfg['paibot']['positive_body_continuation_1'].split("|")
+		self.positive_body_continuation_2 = cfg['paibot']['positive_body_continuation_2'].split("|")
+		self.positive_body_continuation_3 = cfg['paibot']['positive_body_continuation_3'].split("|")
+		self.positive_conclusion_1 = cfg['paibot']['positive_conclusion_1'].split("|")
+		self.positive_conclusion_2 = cfg['paibot']['positive_conclusion_2'].split("|")
+		self.positive_signature = cfg['paibot']['positive_signature'].split("|")
+		self.positive_complete = cfg['paibot']['positive_complete'].split("|")
 
 		# Negative: Pai dislikes the comment
-		negative_adjective = cfg['paibot']['negative_adjective'].split("|")
-		negative_adverb = cfg['paibot']['negative_adverb'].split("|")
-		negative_titles = cfg['paibot']['negative_titles'].split("|")
-		negative_introduction_1 = cfg['paibot']['negative_introduction_1'].split("|")
-		negative_introduction_2 = cfg['paibot']['negative_introduction_2'].split("|")
-		negative_introduction_3 = cfg['paibot']['negative_introduction_3'].split("|")
-		negative_body_start = cfg['paibot']['negative_body_start'].split("|")
-		negative_body_continuation_1 = cfg['paibot']['negative_body_continuation_1'].split("|")
-		negative_body_continuation_2 = cfg['paibot']['negative_body_continuation_2'].split("|")
-		negative_body_continuation_3 = cfg['paibot']['negative_body_continuation_3'].split("|")
-		negative_conclusion_1 = cfg['paibot']['negative_conclusion_1'].split("|")
-		negative_conclusion_2 = cfg['paibot']['negative_conclusion_2'].split("|")
-		negative_conclusion_3 = cfg['paibot']['negative_conclusion_3'].split("|")
-		negative_signature =  cfg['paibot']['negative_signature'].split("|")
-		negative_complete = cfg['paibot']['negative_complete'].split("|")
+		self.negative_adjective = cfg['paibot']['negative_adjective'].split("|")
+		self.negative_adverb = cfg['paibot']['negative_adverb'].split("|")
+		self.negative_titles = cfg['paibot']['negative_titles'].split("|")
+		self.negative_introduction_1 = cfg['paibot']['negative_introduction_1'].split("|")
+		self.negative_introduction_2 = cfg['paibot']['negative_introduction_2'].split("|")
+		self.negative_introduction_3 = cfg['paibot']['negative_introduction_3'].split("|")
+		self.negative_body_start = cfg['paibot']['negative_body_start'].split("|")
+		self.negative_body_continuation_1 = cfg['paibot']['negative_body_continuation_1'].split("|")
+		self.negative_body_continuation_2 = cfg['paibot']['negative_body_continuation_2'].split("|")
+		self.negative_body_continuation_3 = cfg['paibot']['negative_body_continuation_3'].split("|")
+		self.negative_conclusion_1 = cfg['paibot']['negative_conclusion_1'].split("|")
+		self.negative_conclusion_2 = cfg['paibot']['negative_conclusion_2'].split("|")
+		self.negative_conclusion_3 = cfg['paibot']['negative_conclusion_3'].split("|")
+		self.negative_signature =  cfg['paibot']['negative_signature'].split("|")
+		self.negative_complete = cfg['paibot']['negative_complete'].split("|")
 
 		# List of strings to identify a valid comment to reply to
-		netNeutralityKeyStrings = cfg['paibot']['netNeutralityKeyStrings'].split("|")
-		proNetNeutralityStrings = cfg['paibot']['proNetNeutralityStrings'].split("|")
-		antiNetNeutralityStrings = cfg['paibot']['antiNetNeutralityStrings'].split("|")
+		self.netNeutralityKeyStrings = cfg['paibot']['netNeutralityKeyStrings'].split("|")
+		self.proNetNeutralityStrings = cfg['paibot']['proNetNeutralityStrings'].split("|")
+		self.antiNetNeutralityStrings = cfg['paibot']['antiNetNeutralityStrings'].split("|")
 
 		# Misc
-		subreddits = cfg['paibot']['subreddits'].split("|")
-		admins = cfg['paibot']['admins'].split("|")
+		self.subreddits = cfg['paibot']['subreddits'].split("|")
+		self.admins = cfg['paibot']['admins'].split("|")
 
 		return
-
-	########
-	# Init #
-	########
-
-	# Message Content
-	# FORMATTING:
-	# [ADJECTIVE]: Replace with adjective from the _adjective array
-	# [ADVERB]: Replace with adverb from the _adverb array
-	# ~: Only include bot message in signature (ie don't give contact details)
-
-	# Positive: Pai supports the comment
-	positive_adjective = []
-	positive_adverb = []
-	positive_openers = []
-	positive_titles = []
-	positive_introduction_1 = []
-	positive_introduction_2 = []
-	positive_introduction_3 = []
-	positive_body_start = []
-	positive_body_continuation_1 = []
-	positive_body_continuation_2 = []
-	positive_body_continuation_3 = []
-	positive_conclusion_1 = []
-	positive_conclusion_2 = []
-	positive_signature = []
-	positive_complete = []
-
-	positive = [positive_adjective,
-				positive_adverb,
-				positive_openers,
-				positive_titles,
-				positive_introduction_1,
-				positive_introduction_2,
-				positive_introduction_3,
-				positive_body_start,
-				positive_body_continuation_1,
-				positive_body_continuation_2,
-				positive_body_continuation_3,
-				positive_conclusion_1,
-				positive_conclusion_2,
-				positive_signature,
-				positive_complete]
-
-	# Negative: Pai dislikes the comment
-	negative_adjective = []
-	negative_adverb = []
-	negative_titles = []
-	negative_introduction_1 = []
-	negative_introduction_2 = []
-	negative_introduction_3 = []
-	negative_body_start = []
-	negative_body_continuation_1 = []
-	negative_body_continuation_2 = []
-	negative_body_continuation_3 = []
-	negative_conclusion_1 = []
-	negative_conclusion_2 = []
-	negative_conclusion_3 = []
-	negative_signature =  []
-	negative_complete = []
-
-	negative = [negative_adjective,
-				negative_adverb,
-				negative_titles,
-				negative_introduction_1,
-				negative_introduction_2,
-				negative_introduction_3,
-				negative_body_start,
-				negative_body_continuation_1,
-				negative_body_continuation_2,
-				negative_body_continuation_3,
-				negative_conclusion_1,
-				negative_conclusion_2,
-				negative_signature,
-				negative_complete]
-
-	# List of strings to identify a valid comment to reply to
-	netNeutralityKeyStrings = []
-	proNetNeutralityStrings = []
-	antiNetNeutralityStrings = []
-
-	# Misc
-	subreddits = []
-	admins = []
