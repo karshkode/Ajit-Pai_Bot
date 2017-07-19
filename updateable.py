@@ -97,9 +97,9 @@ class updateable:
 		cfg.read('config.cfg')
 
 		# Debug
-		print(positive_adjective)
+		print(self.positive_adjective)
 		print(cfg['paibot']['positive_adjective'].split("|"))
-		print(positive_adjective)
+		print(self.positive_adjective)
 
 		# Positive: Pai supports the comment
 		self.positive_adjective = cfg['paibot']['positive_adjective'].split("|")
