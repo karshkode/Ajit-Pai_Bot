@@ -74,7 +74,7 @@ def parseText(comment, body, post):
 				print("anti nn comment")
 				reply = generateReply(paibot.positive)
 
-			print "calling reply function"
+			print("calling reply function")
 			replyContent(comment, reply)
 
 	except Exception as e:
