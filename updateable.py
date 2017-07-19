@@ -9,6 +9,7 @@ class updateable:
 	# [ADVERB]: Replace with adverb from the _adverb array
 	# ~: Only include bot message in signature (ie don't give contact details)
 
+	# Positive: Pai supports the comment
 	positive_adjective = []
 	positive_adverb = []
 	positive_openers = []
@@ -87,7 +88,7 @@ class updateable:
 		self.positive_signature = cfg['paibot']['positive_signature'].split("|")
 		self.positive_complete = cfg['paibot']['positive_complete'].split("|")
 
-		positive = [self.positive_adjective,
+		self.positive = [self.positive_adjective,
 				self.positive_adverb,
 				self.positive_openers,
 				self.positive_titles,
@@ -120,7 +121,7 @@ class updateable:
 		self.negative_signature =  cfg['paibot']['negative_signature'].split("|")
 		self.negative_complete = cfg['paibot']['negative_complete'].split("|")
 
-		negative = [self.negative_adjective,
+		self.negative = [self.negative_adjective,
 				self.negative_adverb,
 				self.negative_titles,
 				self.negative_introduction_1,
