@@ -35,8 +35,8 @@ def parseText(comment, body, post):
 			if body == "ModBotCode:" + killcode and comment.author in killcfg['admins']['admin']:
 				replyContent(comment, "Copy that, I'm super broken! --> Terminating!!!")
 				return False
-	except Exception:
-		pass
+	except Exception as e:
+		print(e)
 
 	#############################################
 	# Parse for potential content to reply to 	#
@@ -45,8 +45,6 @@ def parseText(comment, body, post):
 
 		# Comment is related to net neutrality
 		if any(keyString in str.lower(body) for keyString in paibot.netNeutralityKeyStrings):
-
-			print("valid comment found")
 
 			# Pro net neutrality scan
 			proNN = 0
@@ -64,28 +62,23 @@ def parseText(comment, body, post):
 
 			# Pro net neutrality comment
 			if proNN >= antiNN:
-				print("pro nn comment")
 				reply = generateReply(paibot.negative)
 				if random.randint(1,10) == 5:
 					reply += "YOU JUST GOT PIED."
 
 			# Anti net neutrality comment
 			else:
-				print("anti nn comment")
 				reply = generateReply(paibot.positive)
 
-			print("calling reply function")
 			replyContent(comment, reply)
 
 	except Exception as e:
 		print(e)
-		#pass
 
 	return True
 
 def generateReply(reply_array):
 	reply = ""
-	print(reply_array)
 	if random.randint(1,20) == 17:
 		reply = random.choice(reply_array[-1])
 		return parsePhrase(reply, reply_array)
@@ -126,13 +119,9 @@ def throwException(title, string):
 def replyContent(comment, text):
 	"Replys to content"
 
-	print("In the replyContent() function")
-
 	if str(comment.id) in open("replyLog.txt", "r").read():
-		print("comment already replied to")
 		return
 	else:
-		print("I'm gonna reply!")
 		text = text[:-1]
 		rText = ""
 		if text[-1] == '~':
@@ -140,7 +129,6 @@ def replyContent(comment, text):
 		else:
 			rText = text + "\n\nAjit Pai - Chairman FCC;  ajit.pai@fcc.gov;  (1) 202-418-2000\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
 		with open('replyLog.txt', 'a') as replyLog:
-			print("I'm replying!!!!!")
 			comment.reply(rText)
 			try:
 				print("Replying to comment: " + comment.body + "\n", text)
@@ -246,8 +234,8 @@ while True:
 							reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
 							print("Received kill code.  Terminating...")
 							exit()
-			except Exception:
-				pass
+			except Exception as e:
+				print(e)
 
 			# Parse submisssions
 			try:
@@ -263,8 +251,8 @@ while True:
 							parseText(submission, submission.url, True)
 						elif submission.body is not None:
 							parseText(submission, submission.body, True)
-			except Exception:
-				pass
+			except Exception as e:
+				print(e)
 
 		# Parse for paibot
 		for message in reddit.inbox.messages(limit=10):
