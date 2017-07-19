@@ -96,11 +96,6 @@ class updateable:
 		cfg = configparser.ConfigParser()
 		cfg.read('config.cfg')
 
-		# Debug
-		print(self.positive_adjective)
-		print(cfg['paibot']['positive_adjective'].split("|"))
-		print(self.positive_adjective)
-
 		# Positive: Pai supports the comment
 		self.positive_adjective = cfg['paibot']['positive_adjective'].split("|")
 		self.positive_adverb = cfg['paibot']['positive_adverb'].split("|")
@@ -143,5 +138,9 @@ class updateable:
 		# Misc
 		self.subreddits = cfg['paibot']['subreddits'].split("|")
 		self.admins = cfg['paibot']['admins'].split("|")
+
+		# Debug
+		print(cfg['paibot']['positive_adjective'].split("|"))
+		print(self.positive_adjective)
 
 		return
