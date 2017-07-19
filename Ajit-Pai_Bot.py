@@ -46,6 +46,8 @@ def parseText(comment, body, post):
 		# Comment is related to net neutrality
 		if any(keyString in str.lower(body) for keyString in netNeutralityKeyStrings):
 
+			print("valid comment found")
+
 			# Pro net neutrality scan
 			proNN = 0
 			for word in paibot.proNetNeutralityStrings:
@@ -62,12 +64,14 @@ def parseText(comment, body, post):
 
 			# Pro net neutrality comment
 			if proNN >= antiNN:
+				print("pro nn comment")
 				reply = generateReply(paibot.negative)
 				if random.randint(1,10) == 5:
 					reply += "YOU JUST GOT PIED."
 
 			# Anti net neutrality comment
 			else:
+				print("anti nn comment")
 				reply = generateReply(paibot.positive)
 
 			replyContent(comment, reply)
