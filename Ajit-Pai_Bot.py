@@ -206,8 +206,11 @@ print('logged in as: ', reddit.user.me(), '\n')
 random.seed(a=None)
 configFile = configparser.ConfigParser()
 configFile.read('praw.ini')
+subList = configFile['bot1']['subreddits']
+subreddits = subList.split(",")
 paibot = updateable.updateable()
-print(paibot.subreddits)
+print(paibot.admins)
+print(paibot.positive_adverb)
 
 
 # Main program
@@ -217,7 +220,7 @@ while True:
 		print("------------New Cycle------------\n")
 
 		# Cycle through subreddits
-		for subredditName in paibot.subreddits:
+		for subredditName in subreddits:
 			subreddit = reddit.subreddit(subredditName)
 
 			# Parse comments
