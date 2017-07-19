@@ -2,6 +2,12 @@ import configparser
 
 class updateable:
 
+	# Message Content
+	# FORMATTING:
+	# [ADJECTIVE]: Replace with adjective from the _adjective array
+	# [ADVERB]: Replace with adverb from the _adverb array
+	# ~: Only include bot message in signature (ie don't give contact details)
+
 	positive_adjective = []
 	positive_adverb = []
 	positive_openers = []
@@ -78,86 +84,7 @@ class updateable:
 	# Constructor
 	def __init__(self):
 		self.readConfig()
-		# Message Content
-		# FORMATTING:
-		# [ADJECTIVE]: Replace with adjective from the _adjective array
-		# [ADVERB]: Replace with adverb from the _adverb array
-		# ~: Only include bot message in signature (ie don't give contact details)
-
-		# Positive: Pai supports the comment
-		self.positive_adjective = []
-		self.positive_adverb = []
-		self.positive_openers = []
-		self.positive_titles = []
-		self.positive_introduction_1 = []
-		self.positive_introduction_2 = []
-		self.positive_introduction_3 = []
-		self.positive_body_start = []
-		self.positive_body_continuation_1 = []
-		self.positive_body_continuation_2 = []
-		self.positive_body_continuation_3 = []
-		self.positive_conclusion_1 = []
-		self.positive_conclusion_2 = []
-		self.positive_signature = []
-		self.positive_complete = []
-
-		self.positive = [positive_adjective,
-					positive_adverb,
-					positive_openers,
-					positive_titles,
-					positive_introduction_1,
-					positive_introduction_2,
-					positive_introduction_3,
-					positive_body_start,
-					positive_body_continuation_1,
-					positive_body_continuation_2,
-					positive_body_continuation_3,
-					positive_conclusion_1,
-					positive_conclusion_2,
-					positive_signature,
-					positive_complete]
-
-		# Negative: Pai dislikes the comment
-		self.negative_adjective = []
-		self.negative_adverb = []
-		self.negative_titles = []
-		self.negative_introduction_1 = []
-		self.negative_introduction_2 = []
-		self.negative_introduction_3 = []
-		self.negative_body_start = []
-		self.negative_body_continuation_1 = []
-		self.negative_body_continuation_2 = []
-		self.negative_body_continuation_3 = []
-		self.negative_conclusion_1 = []
-		self.negative_conclusion_2 = []
-		self.negative_conclusion_3 = []
-		self.negative_signature =  []
-		self.negative_complete = []
-
-		self.negative = [negative_adjective,
-					negative_adverb,
-					negative_titles,
-					negative_introduction_1,
-					negative_introduction_2,
-					negative_introduction_3,
-					negative_body_start,
-					negative_body_continuation_1,
-					negative_body_continuation_2,
-					negative_body_continuation_3,
-					negative_conclusion_1,
-					negative_conclusion_2,
-					negative_signature,
-					negative_complete]
-
-		# List of strings to identify a valid comment to reply to
-		self.netNeutralityKeyStrings = []
-		self.proNetNeutralityStrings = []
-		self.antiNetNeutralityStrings = []
-
-		# Misc
-		self.subreddits = []
-		self.admins = []
-
+		
 	# Destructor
 	def __del__(self):
 		return
