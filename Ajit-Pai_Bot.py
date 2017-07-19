@@ -36,7 +36,7 @@ def parseText(comment, body, post):
 				replyContent(comment, "Copy that, I'm super broken! --> Terminating!!!")
 				return False
 	except Exception as e:
-		print(e)
+		pass
 
 	#############################################
 	# Parse for potential content to reply to 	#
@@ -252,7 +252,7 @@ while True:
 						elif submission.body is not None:
 							parseText(submission, submission.body, True)
 			except Exception as e:
-				print(e)
+				pass
 
 		# Parse for paibot
 		for message in reddit.inbox.messages(limit=10):
@@ -262,10 +262,10 @@ while True:
 					print("Pulling repository...")
 					call("git pull")
 					importlib.reload(updateable)
-					message.reply("Successfully updated!")
+					#message.reply("Successfully updated!")
 					print("Successfully updated!")
 				except Exception as e:
-					message.reply("Error updating!")
+					#message.reply("Error updating!")
 					print("Error updating!")
 					print(e)
 				break
