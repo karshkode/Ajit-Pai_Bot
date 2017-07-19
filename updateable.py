@@ -104,7 +104,7 @@ class updateable:
 		self.positive_introduction_1 = cfg['paibot']['positive_introduction_1'].split("|")
 		self.positive_introduction_2 = cfg['paibot']['positive_introduction_2'].split("|")
 		self.positive_introduction_3 = cfg['paibot']['positive_introduction_3'].split("|")
-		self.self.positive_body_start = cfg['paibot']['positive_body_start'].split("|")
+		self.positive_body_start = cfg['paibot']['positive_body_start'].split("|")
 		self.positive_body_continuation_1 = cfg['paibot']['positive_body_continuation_1'].split("|")
 		self.positive_body_continuation_2 = cfg['paibot']['positive_body_continuation_2'].split("|")
 		self.positive_body_continuation_3 = cfg['paibot']['positive_body_continuation_3'].split("|")
