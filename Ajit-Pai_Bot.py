@@ -207,7 +207,7 @@ random.seed(a=None)
 configFile = configparser.ConfigParser()
 configFile.read('praw.ini')
 paibot = updateable.updateable()
-print(updateable.subreddits)
+print(paibot.subreddits)
 
 
 # Main program
