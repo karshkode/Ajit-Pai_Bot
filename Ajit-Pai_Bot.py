@@ -209,9 +209,6 @@ configFile.read('praw.ini')
 subList = configFile['bot1']['subreddits']
 subreddits = subList.split(",")
 paibot = updateable.updateable()
-paibot.readConfig()
-print(paibot.admins)
-print(paibot.positive_adverb)
 
 
 # Main program

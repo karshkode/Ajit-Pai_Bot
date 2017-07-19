@@ -3,6 +3,7 @@ import configparser
 class updateable:
 
 	# Message Content
+	# Elements in the array are delimited with the | character in config.cfg
 	# FORMATTING:
 	# [ADJECTIVE]: Replace with adjective from the _adjective array
 	# [ADVERB]: Replace with adverb from the _adverb array
@@ -138,9 +139,5 @@ class updateable:
 		# Misc
 		self.subreddits = cfg['paibot']['subreddits'].split("|")
 		self.admins = cfg['paibot']['admins'].split("|")
-
-		# Debug
-		print(cfg['paibot']['positive_adjective'].split("|"))
-		print(self.positive_adjective)
 
 		return
