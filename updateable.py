@@ -18,6 +18,11 @@ class updateable:
 		cfg = configparser.ConfigParser()
 		cfg.read('config.cfg')
 
+		# Debug
+		print(positive_adjective)
+		print(cfg['paibot']['positive_adjective'].split("|"))
+		print(positive_adjective)
+
 		# Positive: Pai supports the comment
 		positive_adjective = cfg['paibot']['positive_adjective'].split("|")
 		positive_adverb = cfg['paibot']['positive_adverb'].split("|")
