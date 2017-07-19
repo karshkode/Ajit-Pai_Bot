@@ -4,7 +4,7 @@ class updateable:
 
 	# Constructor
 	def __init__(self):
-		readConfig()
+		self.readConfig()
 		return
 
 	# Destructor
