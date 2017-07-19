@@ -1,4 +1,4 @@
-version="0.20"
+version="0.21"
 
 import pdb
 import re
@@ -48,13 +48,13 @@ def parseText(comment, body, post):
 
 			# Pro net neutrality scan
 			proNN = 0
-			for word in updateable.proNetNeutralityStrings:
+			for word in paibot.proNetNeutralityStrings:
 				if word in str.lower(body):
 					proNN += 1
 
 			# Anti net neutrality scan
 			antiNN = 0
-			for word in updateable.antiNetNeutralityStrings:
+			for word in paibot.antiNetNeutralityStrings:
 				if word in str.lower(body):
 					antiNN += 1
 
@@ -62,13 +62,13 @@ def parseText(comment, body, post):
 
 			# Pro net neutrality comment
 			if proNN >= antiNN:
-				reply = generateReply(updateable.negative)
+				reply = generateReply(paibot.negative)
 				if random.randint(1,10) == 5:
 					reply += "YOU JUST GOT PIED."
 
 			# Anti net neutrality comment
 			else:
-				reply = generateReply(updateable.positive)
+				reply = generateReply(paibot.positive)
 
 			replyContent(comment, reply)
 
@@ -128,14 +128,11 @@ def replyContent(comment, text):
 		else:
 			rText = text + "\n\nAjit Pai - Chairman FCC;  ajit.pai@fcc.gov;  (1) 202-418-2000\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
 		with open('replyLog.txt', 'a') as replyLog:
+			comment.reply(rText)
 			try:
-				comment.reply(rText)
-				try:
-					print("Replying to comment: " + comment.body + "\n", text)
-				except Exception:
-					print("Replying to post: " + comment.title + "\n", text)
+				print("Replying to comment: " + comment.body + "\n", text)
 			except Exception:
-				pass
+				print("Replying to post: " + comment.title + "\n", text)
 			replyLog = open("replyLog.txt", "a")
 			replyLog.write(str(comment.id))
 			replyLog.write("\n")
@@ -209,6 +206,8 @@ print('logged in as: ', reddit.user.me(), '\n')
 random.seed(a=None)
 configFile = configparser.ConfigParser()
 configFile.read('praw.ini')
+paibot = updateable()
+
 
 # Main program
 while True:
@@ -217,7 +216,7 @@ while True:
 		print("------------New Cycle------------\n")
 
 		# Cycle through subreddits
-		for subredditName in updateable.subreddits:
+		for subredditName in paibot.subreddits:
 			subreddit = reddit.subreddit(subredditName)
 
 			# Parse comments
@@ -252,23 +251,20 @@ while True:
 			except Exception:
 				pass
 
-			# Parse for updateable
-			try:
-				for message in reddit.inbox.messages(limit=10):
-					if message.author.name in updateable.admins and "UPDATE" in message.body:
-						print("Recieved update command from " + updateable.admins + "...")
-						try:
-							print("Pulling repository...")
-							call("git pull")
-							importlib.reload(updateable)
-							message.reply("Successfully updated!")
-							print("Successfully updated!")
-						except Exception:
-							message.reply("Error updating!")
-							print("Error updating!")
-						break
-			except Exception:
-				pass
+		# Parse for paibot
+		for message in reddit.inbox.messages(limit=10):
+			if message.author.name in paibot.admins and "UPDATE" in message.body:
+				print("Recieved update command from " + paibot.admins + "...")
+				try:
+					print("Pulling repository...")
+					call("git pull")
+					importlib.reload(paibot)
+					message.reply("Successfully updated!")
+					print("Successfully updated!")
+				except Exception:
+					message.reply("Error updating!")
+					print("Error updating!")
+				break
 
 	except Exception as e:
 		print("---------------------------------\n")
