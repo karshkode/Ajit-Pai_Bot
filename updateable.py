@@ -120,7 +120,7 @@ class updateable:
 		self.negative_signature =  cfg['paibot']['negative_signature'].split("|")
 		self.negative_complete = cfg['paibot']['negative_complete'].split("|")
 
-		negative = [negative_adjective,
+		negative = [self.negative_adjective,
 				self.negative_adverb,
 				self.negative_titles,
 				self.negative_introduction_1,
