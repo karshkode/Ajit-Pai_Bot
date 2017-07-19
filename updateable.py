@@ -147,4 +147,4 @@ class updateable:
 	subreddits = []
 	admins = []
 
-	self.readConfig()
+	readConfig()
