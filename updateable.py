@@ -25,21 +25,7 @@ class updateable:
 	positive_signature = []
 	positive_complete = []
 
-	positive = [positive_adjective,
-				positive_adverb,
-				positive_openers,
-				positive_titles,
-				positive_introduction_1,
-				positive_introduction_2,
-				positive_introduction_3,
-				positive_body_start,
-				positive_body_continuation_1,
-				positive_body_continuation_2,
-				positive_body_continuation_3,
-				positive_conclusion_1,
-				positive_conclusion_2,
-				positive_signature,
-				positive_complete]
+	positive = []
 
 	# Negative: Pai dislikes the comment
 	negative_adjective = []
@@ -58,20 +44,7 @@ class updateable:
 	negative_signature =  []
 	negative_complete = []
 
-	negative = [negative_adjective,
-				negative_adverb,
-				negative_titles,
-				negative_introduction_1,
-				negative_introduction_2,
-				negative_introduction_3,
-				negative_body_start,
-				negative_body_continuation_1,
-				negative_body_continuation_2,
-				negative_body_continuation_3,
-				negative_conclusion_1,
-				negative_conclusion_2,
-				negative_signature,
-				negative_complete]
+	negative = []
 
 	# List of strings to identify a valid comment to reply to
 	netNeutralityKeyStrings = []
@@ -114,6 +87,22 @@ class updateable:
 		self.positive_signature = cfg['paibot']['positive_signature'].split("|")
 		self.positive_complete = cfg['paibot']['positive_complete'].split("|")
 
+		positive = [self.positive_adjective,
+				self.positive_adverb,
+				self.positive_openers,
+				self.positive_titles,
+				self.positive_introduction_1,
+				self.positive_introduction_2,
+				self.positive_introduction_3,
+				self.positive_body_start,
+				self.positive_body_continuation_1,
+				self.positive_body_continuation_2,
+				self.positive_body_continuation_3,
+				self.positive_conclusion_1,
+				self.positive_conclusion_2,
+				self.positive_signature,
+				self.positive_complete]
+
 		# Negative: Pai dislikes the comment
 		self.negative_adjective = cfg['paibot']['negative_adjective'].split("|")
 		self.negative_adverb = cfg['paibot']['negative_adverb'].split("|")
@@ -130,6 +119,21 @@ class updateable:
 		self.negative_conclusion_3 = cfg['paibot']['negative_conclusion_3'].split("|")
 		self.negative_signature =  cfg['paibot']['negative_signature'].split("|")
 		self.negative_complete = cfg['paibot']['negative_complete'].split("|")
+
+		negative = [negative_adjective,
+				self.negative_adverb,
+				self.negative_titles,
+				self.negative_introduction_1,
+				self.negative_introduction_2,
+				self.negative_introduction_3,
+				self.negative_body_start,
+				self.negative_body_continuation_1,
+				self.negative_body_continuation_2,
+				self.negative_body_continuation_3,
+				self.negative_conclusion_1,
+				self.negative_conclusion_2,
+				self.negative_signature,
+				self.negative_complete]
 
 		# List of strings to identify a valid comment to reply to
 		self.netNeutralityKeyStrings = cfg['paibot']['netNeutralityKeyStrings'].split("|")
