@@ -14,7 +14,7 @@ class updateable:
 	# Update from file
 	def readConfig(self):
 
-		# Some config parsers to parse the config with
+		# Some config parsers to parse configs with
 		cfg = configparser.ConfigParser()
 		cfg.read('config.cfg')
 
