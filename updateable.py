@@ -146,5 +146,3 @@ class updateable:
 	# Misc
 	subreddits = []
 	admins = []
-
-	readConfig()
