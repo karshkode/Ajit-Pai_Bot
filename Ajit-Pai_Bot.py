@@ -260,7 +260,7 @@ while True:
 				try:
 					print("Pulling repository...")
 					call("git pull")
-					importlib.reload(paibot)
+					importlib.reload(updateable)
 					message.reply("Successfully updated!")
 					print("Successfully updated!")
 				except Exception:
