@@ -1,4 +1,4 @@
-version="0.24"
+version="0.25"
 
 import pdb
 import os
@@ -23,7 +23,7 @@ while True:
 	# Setup the bot feedback interface
 	os.system('cls')
 	sp.call('clear',shell=True)
-	print('logged in as: ', reddit.user.me(), '\n')
+	print('logged in as: ', bot.user.me(), '\n')
 
 	# Main program
 	while True:
