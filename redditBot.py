@@ -22,46 +22,46 @@ class redditBot:
 	def __init__(self):
 		
 		# Create the reddit instance
-		reddit = praw.Reddit('bot1')
+		self.reddit = praw.Reddit('bot1')
 
 		# Setup the bot feedback interface
 		os.system('cls')
 		sp.call('clear',shell=True)
-		print('logged in as: ', reddit.user.me(), '\n')
+		print('logged in as: ', self.reddit.user.me(), '\n')
 
 		# Setup the bot
 		random.seed(a=None)
 		configFile = configparser.ConfigParser()
 		configFile.read('praw.ini')
 		subList = configFile['bot1']['subreddits']
-		subreddits = subList.split(",")
-		paibot = updateable.updateable()
+		self.subreddits = subList.split(",")
+		self.paibot = updateable.updateable()
 		
 	# Destructor
 	def __del__(self):
 		return
 
 	# Main function
-	def runCycle():
+	def runCycle(self):
 
 		try:
 			print('\n')
 			print("------------New Cycle------------\n")
 
 			# Cycle through subreddits
-			for subredditName in subreddits:
-				subreddit = reddit.subreddit(subredditName)
+			for subredditName in self.subreddits:
+				subreddit = self.reddit.subreddit(subredditName)
 
 				# Parse comments
 				try:
 					for comment in subreddit.comments(limit=100):
-						if comment.author is not None and comment.author != reddit.user.me():
+						if comment.author is not None and comment.author != self.reddit.user.me():
 							rtnVal = parseText(comment, comment.body, False)
 
 							# Kill switch
 							if rtnVal == False:
 								messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the bot and this should be investigated immediately."
-								reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
+								self.reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
 								print("Received kill code.  Terminating...")
 								exit()
 				except Exception as e:
@@ -75,7 +75,7 @@ class redditBot:
 						if submission.stickied == True:
 							continue
 
-						if submission.author is not None and submission.author != reddit.user.me():
+						if submission.author is not None and submission.author != self.reddit.user.me():
 							parseText(submission, submission.title, True)
 							if submission.domain.split(".")[0] is not "self":
 								parseText(submission, submission.url, True)
@@ -85,8 +85,8 @@ class redditBot:
 					pass
 
 			# Parse for paibot
-			for message in reddit.inbox.messages(limit=10):
-				if message.author.name in paibot.admins and "UPDATE" in message.body:
+			for message in self.reddit.inbox.messages(limit=10):
+				if message.author.name in self.paibot.admins and "UPDATE" in message.body:
 					print("Recieved update command from " + message.author.name + "...")
 					try:
 						print("Pulling repository...")
@@ -117,7 +117,7 @@ class redditBot:
 		# Kill switch 	#
 		#################
 		try:
-			if comment.parent().author == reddit.user.me() and "ModBotCode:" in body:
+			if comment.parent().author == self.reddit.user.me() and "ModBotCode:" in body:
 				killcfg = configparser.ConfigParser()
 				killcfg.read('praw.ini')
 				killcode = killcfg['bot1']['killcode']
@@ -134,17 +134,17 @@ class redditBot:
 		try:
 
 			# Comment is related to net neutrality
-			if any(keyString in str.lower(body) for keyString in paibot.netNeutralityKeyStrings):
+			if any(keyString in str.lower(body) for keyString in self.paibot.netNeutralityKeyStrings):
 
 				# Pro net neutrality scan
 				proNN = 0
-				for word in paibot.proNetNeutralityStrings:
+				for word in self.paibot.proNetNeutralityStrings:
 					if word in str.lower(body):
 						proNN += 1
 
 				# Anti net neutrality scan
 				antiNN = 0
-				for word in paibot.antiNetNeutralityStrings:
+				for word in self.paibot.antiNetNeutralityStrings:
 					if word in str.lower(body):
 						antiNN += 1
 
@@ -152,13 +152,13 @@ class redditBot:
 
 				# Pro net neutrality comment
 				if proNN >= antiNN:
-					reply = generateReply(paibot.negative)
+					reply = generateReply(self.paibot.negative)
 					if random.randint(1,10) == 5:
 						reply += "YOU JUST GOT PIED."
 
 				# Anti net neutrality comment
 				else:
-					reply = generateReply(paibot.positive)
+					reply = generateReply(self.paibot.positive)
 
 				replyContent(comment, reply)
 
