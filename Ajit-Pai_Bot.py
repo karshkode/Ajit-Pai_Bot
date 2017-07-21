@@ -19,14 +19,14 @@ while True:
 
 	# Setup the reddit bot
 	bot = redditBot.redditBot()
+	updated = False
 
 	# Setup the bot feedback interface
 	os.system('cls')
 	sp.call('clear',shell=True)
-	print('logged in as: ', bot.user.me(), '\n')
 
 	# Main program
-	while True:
+	while updated == False:
 
 		# Run a redditBot cycle
 		bot.runCycle()
@@ -41,6 +41,7 @@ while True:
 						call("git pull")
 						importlib.reload(updateable)
 						#message.reply("Successfully updated!")
+						updated = True
 						print("Successfully updated!")
 					except Exception as e:
 						#message.reply("Error updating!")
