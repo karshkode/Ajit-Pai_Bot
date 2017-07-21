@@ -110,7 +110,7 @@ class redditBot:
 		return
 
 	# Parse content text and decide to act upon it
-	def parseText(comment, body, post):
+	def parseText(self, comment, body, post):
 		"Parses the text of a comment and decides"
 
 		#################
@@ -167,7 +167,7 @@ class redditBot:
 
 		return True
 
-	def generateReply(reply_array):
+	def generateReply(self, reply_array):
 		reply = ""
 		if random.randint(1,20) == 17:
 			reply = random.choice(reply_array[-1])
@@ -177,7 +177,7 @@ class redditBot:
 			reply += parsePhrase(phrase, reply_array)
 		return reply
 
-	def parsePhrase(phrase, reply_array):
+	def parsePhrase(self, phrase, reply_array):
 		parsed_phrase = ""
 		if "[ADJECTIVE]" in phrase:
 			words = phrase.split("[ADJECTIVE]")
@@ -200,13 +200,13 @@ class redditBot:
 	#-------------------------------------------------------------------------------------------------------
 
 	# Throw an exception to the subreddit
-	def throwException(title, string):
+	def throwException(self, title, string):
 		"Throws an exception to the subreddit as a self post"
 		subreddit.submit("Exception: " + title, selftext=string, resubmit=False, send_replies=False)
 		return "Exception"
 
 	# Reply to content function
-	def replyContent(comment, text):
+	def replyContent(self, comment, text):
 		"Replys to content"
 
 		if str(comment.id) in open("replyLog.txt", "r").read():
@@ -232,7 +232,7 @@ class redditBot:
 		return
 
 	# Reports content for review
-	def reportContent(comment, reasons):
+	def reportContent(self, comment, reasons):
 		"Reports content for the moderation queue"
 		if str(comment.id) in open("reportLog.txt", "r").read():
 			return
@@ -252,7 +252,7 @@ class redditBot:
 		return
 
 	# Check if content is in a hostile tone
-	def hostileCheck(body):
+	def hostileCheck(self, body):
 		"Checks for hostility in content body"
 		upperCount = 0
 		for word in body.split():
@@ -265,7 +265,7 @@ class redditBot:
 
 
 	# Truncate the log file so the bot doesn't eat itself digging through 9000 lines of logs
-	def truncateLogFile(logFile):
+	def truncateLogFile(self, logFile):
 		"Trucates the input log file"
 		FILELEN = 100
 
