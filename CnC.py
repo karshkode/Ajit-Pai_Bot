@@ -28,7 +28,7 @@ class CnC:
 				if str.lower("update") in command[1]:
 					g = git.cmd.Git()
 					g.pull()
-					submission.reply(self.bot.id + " - Affirm, updating")
+					submission.reply(self.botname + " - Affirm, updating")
 					restart = True
 
 				if str.lower("edit") in command[1]:
