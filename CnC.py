@@ -20,19 +20,23 @@ class CnC:
 
 	def parseCommands(self, commands, submission):
 		commands = commands.splitlines()
+		restart = False
 		for command in commands:
 			if str.lower("all") in command or self.botname in command:
 				if str.lower("update") in command:
 					g = git.cmd.Git()
 					g.pull()
 					submission.reply(self.botname + ": Affirm, updating")
-					return True
+					restart = True
 
 				if str.lower("ping") in command:
 					submission.reply(self.botname + ": Pong")
 
 				with open('cncLog.txt', 'w') as log:
 					log.write(str(submission.id))
+
+		if restart == True:
+			return True
 
 		return False
 
