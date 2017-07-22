@@ -231,7 +231,7 @@ class redditBot:
 				try:
 					for comment in subreddit.comments(limit=100):
 						if comment.author is not None and comment.author != self.reddit.user.me():
-							rtnVal = parseText(comment, comment.body, False)
+							rtnVal = self.parseText(comment, comment.body, False)
 
 							# Kill switch
 							if rtnVal == False:
@@ -251,11 +251,11 @@ class redditBot:
 							continue
 
 						if submission.author is not None and submission.author != self.reddit.user.me():
-							parseText(submission, submission.title, True)
+							self.parseText(submission, submission.title, True)
 							if submission.domain.split(".")[0] is not "self":
-								parseText(submission, submission.url, True)
+								self.parseText(submission, submission.url, True)
 							elif submission.body is not None:
-								parseText(submission, submission.body, True)
+								self.parseText(submission, submission.body, True)
 				except Exception as e:
 					pass
 
