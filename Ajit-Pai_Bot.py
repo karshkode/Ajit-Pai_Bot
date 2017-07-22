@@ -31,9 +31,9 @@ while True:
 		# Run a redditBot cycle
 		bot.runCycle()
 
-		# Check for paibot updates
+		# Check for paibot updates # TODO: Make a better system in it's own class
 		try:
-			for message in reddit.inbox.messages(limit=10):
+			for message in bot.reddit.inbox.messages(limit=10):
 				if message.author.name in paibot.admins and "UPDATE" in message.body:
 					print("Recieved update command from " + message.author.name + "...")
 					try:
