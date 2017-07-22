@@ -38,7 +38,7 @@ class CnC:
 						configFile.set(command[2], command[3], command[4])
 						with open('praw.ini', 'w') as cfg:
 							configFile.write(cfg)
-						submission.reply(self.botname + " - Affirm editing " + command[2])
+						submission.reply(self.botname + " - Affirm editing " + command[3])
 						restart = True
 					except Exception as e:
 						submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
