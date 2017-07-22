@@ -65,14 +65,14 @@ class CnC:
 					replaceable = True
 
 					if ("," + command[4]) in existingVar:
-						existingVar = "," + existingVar
+						replaceStr = "," + command[4]
 					elif (command[4] + ",") in existingVar:
-						existingVar = existingVar + ","
+						replaceStr = command[4] + ","
 					else:
 						replaceable = False
 
 					if replaceable == True:
-						existingVar = existingVar.replace(command[3], "")
+						existingVar = existingVar.replace(replaceStr, "")
 						try:
 							configFile.set(command[2], command[3], existingVar)
 							with open('praw.ini', 'w') as cfg:
