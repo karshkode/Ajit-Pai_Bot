@@ -36,9 +36,9 @@ class CnC:
 					configFile.read('praw.ini')
 					try:
 						configFile.set(command[2], command[3], command[4])
-						with open('praw.ini', 'wb') as cfg:
+						with open('praw.ini', 'w') as cfg:
 							configFile.write(cfg)
-							submission.reply(self.botname + " - Affirm editing " + command[2])
+						submission.reply(self.botname + " - Affirm editing " + command[2])
 						restart = True
 					except Exception as e:
 						submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
@@ -50,9 +50,9 @@ class CnC:
 					existingVar = configFile[command[2]][command[3]]
 					try:
 						configFile.set(command[2], command[3], existingVar + "," + command[4])
-						with open('praw.ini', 'wb') as cfg:
+						with open('praw.ini', 'w') as cfg:
 							configFile.write(cfg)
-							submission.reply(self.botname + " - Affirm, adding " + command[4])
+						submission.reply(self.botname + " - Affirm, adding " + command[4])
 						restart = True
 					except Exception as e:
 						submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
@@ -69,9 +69,9 @@ class CnC:
 					existingVar = existingVar.replace(command[3], "")
 					try:
 						configFile.set(command[2], command[3], existingVar)
-						with open('praw.ini', 'wb') as cfg:
+						with open('praw.ini', 'w') as cfg:
 							configFile.write(cfg)
-							submission.reply(self.botname + " - Affirm, removing " + command[4])
+						submission.reply(self.botname + " - Affirm, removing " + command[4])
 						restart = True
 					except Exception as e:
 						submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
