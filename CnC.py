@@ -62,20 +62,28 @@ class CnC:
 					configFile = configparser.ConfigParser()
 					configFile.read('praw.ini')
 					existingVar = configFile[command[2]][command[3]]
-					if ("," + command[3]) in existingVar:
+					replaceable = True
+
+					if ("," + command[4]) in existingVar:
 						existingVar = "," + existingVar
-					elif (command[3] + ",") in existingVar:
+					elif (command[4] + ",") in existingVar:
 						existingVar = existingVar + ","
-					existingVar = existingVar.replace(command[3], "")
-					try:
-						configFile.set(command[2], command[3], existingVar)
-						with open('praw.ini', 'w') as cfg:
-							configFile.write(cfg)
-						submission.reply(self.botname + " - Affirm, removing " + command[4])
-						restart = True
-					except Exception as e:
-						submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
-						print(e)
+					else:
+						replaceable = False
+
+					if replaceable == True:
+						existingVar = existingVar.replace(command[3], "")
+						try:
+							configFile.set(command[2], command[3], existingVar)
+							with open('praw.ini', 'w') as cfg:
+								configFile.write(cfg)
+							submission.reply(self.botname + " - Affirm, removing " + command[4])
+							restart = True
+						except Exception as e:
+							submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
+							print(e)
+					else:
+						submission.reply(self.botname + " - Error, " + command[4] + " not found")
 
 				if str.lower("status") in command[1]:
 					submission.reply(self.botname + " - Alive\n\n" + self.subList)
