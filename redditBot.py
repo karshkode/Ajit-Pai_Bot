@@ -36,6 +36,8 @@ class redditBot:
 		subList = configFile['bot1']['subreddits']
 		self.subreddits = subList.split(",")
 		self.paibot = updateable.updateable()
+
+		return
 		
 	# Destructor
 	def __del__(self):
