@@ -26,7 +26,7 @@ class CnC:
 		for command in commands:
 			if str.lower("all") in command or self.botnum in command:
 				if str.lower("update") in command:
-					g = git.cmd.Git(self.gitDir)
+					g = git.cmd.Git()
 					g.pull()
 					self.reddit.reply(self.botnum + ": Affirm, updating")
 					return True
