@@ -33,7 +33,7 @@ class redditBot:
 		random.seed(a=None)
 		configFile = configparser.ConfigParser()
 		configFile.read('praw.ini')
-		subList = configFile['bot1']['subreddits']
+		subList = configFile['admins']['subreddits']
 		self.subreddits = subList.split(",")
 		self.paibot = updateable.updateable()
 

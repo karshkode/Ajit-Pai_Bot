@@ -12,7 +12,7 @@ class CnC:
 		self.c2 = configFile['admins']['c2']
 		self.admins = configFile['admins']['admin'].split(",")
 		self.botname = configFile['admins']['botname']
-		self.subList = configFile['bot1']['subreddits']
+		self.subList = configFile['admins']['subreddits']
 
 		return
 
