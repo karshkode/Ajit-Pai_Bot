@@ -3,9 +3,9 @@ import git
 
 class CnC:
 
-	def __init__(self, reddit):
+	def __init__(self, bot):
 
-		self.reddit = reddit
+		self.reddit = bot.reddit
 
 		configFile = configparser.ConfigParser()
 		configFile.read('praw.ini')
