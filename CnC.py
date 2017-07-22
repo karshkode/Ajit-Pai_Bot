@@ -41,7 +41,7 @@ class CnC:
 
 	def cnc(self):
 		try:
-			for submission in reddit.subreddit(c2).new(limit=1):
+			for submission in self.reddit.subreddit(c2).new(limit=1):
 				if submission.author in self.admins and submission.id not in open('cncLog.txt', 'r').read():
 					if parseCommands(submission.body) == True:
 						return True
