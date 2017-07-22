@@ -57,7 +57,7 @@ class redditBot:
 				killcode = killcfg['bot1']['killcode']
 
 				if body == "ModBotCode:" + killcode and comment.author in killcfg['admins']['admin']:
-					replyContent(comment, "Copy that, I'm super broken! --> Terminating!!!")
+					self.replyContent(comment, "Copy that, I'm super broken! --> Terminating!!!")
 					return False
 		except Exception as e:
 			pass
@@ -86,15 +86,15 @@ class redditBot:
 
 				# Pro net neutrality comment
 				if proNN >= antiNN:
-					reply = generateReply(self.paibot.negative)
+					reply = self.generateReply(self.paibot.negative)
 					if random.randint(1,10) == 5:
 						reply += "YOU JUST GOT PIED."
 
 				# Anti net neutrality comment
 				else:
-					reply = generateReply(self.paibot.positive)
+					reply = self.generateReply(self.paibot.positive)
 
-				replyContent(comment, reply)
+				self.replyContent(comment, reply)
 
 		except Exception as e:
 			print(e)
@@ -105,10 +105,10 @@ class redditBot:
 		reply = ""
 		if random.randint(1,20) == 17:
 			reply = random.choice(reply_array[-1])
-			return parsePhrase(reply, reply_array)
+			return self.parsePhrase(reply, reply_array)
 		for branch in reply_array[2:]:
 			phrase = random.choice(branch)
-			reply += parsePhrase(phrase, reply_array)
+			reply += self.parsePhrase(phrase, reply_array)
 		return reply
 
 	def parsePhrase(self, phrase, reply_array):
@@ -162,7 +162,7 @@ class redditBot:
 				replyLog.write(str(comment.id))
 				replyLog.write("\n")
 				replyLog.close()
-				truncateLogFile("replyLog.txt")
+				self.truncateLogFile("replyLog.txt")
 		return
 
 	# Reports content for review
@@ -182,7 +182,7 @@ class redditBot:
 				reportLog.write(str(comment.id))
 				reportLog.write("\n")
 				reportLog.close()
-				truncateLogFile("reportLog.txt")
+				self.truncateLogFile("reportLog.txt")
 		return
 
 	# Check if content is in a hostile tone
