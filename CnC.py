@@ -43,7 +43,7 @@ class CnC:
 		try:
 			for submission in self.reddit.subreddit(self.c2).new(limit=1):
 				if submission.author in self.admins and submission.id not in open('cncLog.txt', 'r').read():
-					if parseCommands(submission.body, submission) == True:
+					if self.parseCommands(submission.body, submission) == True:
 						return True
 					else:
 						return False

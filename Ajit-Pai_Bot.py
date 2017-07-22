@@ -35,6 +35,7 @@ while True:
 		# Check for updates
 		updated = c2.cnc()
 
+	print("Updated, restarting...")
 	importlib.reload(updateable)
 	importlib.reload(CnC)
 
