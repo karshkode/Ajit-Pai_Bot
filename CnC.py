@@ -1,6 +1,4 @@
-import time
 import configparser
-import praw # Reddit
 import git
 
 class CnC:
@@ -13,8 +11,7 @@ class CnC:
 		configFile.read('praw.ini')
 		self.c2 = configFile['admins']['c2']
 		self.admins = configFile['admins']['admin'].split(",")
-		self.botnum = configFile['admins']['botnum']
-		self.gitDir = configFile['admins']['gitdir']
+		self.botname = configFile['admins']['botname']
 
 		return
 
@@ -24,15 +21,15 @@ class CnC:
 	def parseCommands(self, commands, submission):
 		commands = commands.splitlines()
 		for command in commands:
-			if str.lower("all") in command or self.botnum in command:
+			if str.lower("all") in command or self.botname in command:
 				if str.lower("update") in command:
 					g = git.cmd.Git()
 					g.pull()
-					submission.reply(self.botnum + ": Affirm, updating")
+					submission.reply(self.botname + ": Affirm, updating")
 					return True
 
 				if str.lower("ping") in command:
-					submission.reply(self.botnum + ": Pong")
+					submission.reply(self.botname + ": Pong")
 
 				with open('cncLog.txt', 'w') as log:
 					log.write(str(submission.id))
