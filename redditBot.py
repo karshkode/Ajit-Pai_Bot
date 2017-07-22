@@ -41,74 +41,6 @@ class redditBot:
 	def __del__(self):
 		return
 
-	# Main function
-	def runCycle(self):
-
-		try:
-			print('\n')
-			print("------------New Cycle------------\n")
-
-			# Cycle through subreddits
-			for subredditName in self.subreddits:
-				subreddit = self.reddit.subreddit(subredditName)
-
-				# Parse comments
-				try:
-					for comment in subreddit.comments(limit=100):
-						if comment.author is not None and comment.author != self.reddit.user.me():
-							rtnVal = parseText(comment, comment.body, False)
-
-							# Kill switch
-							if rtnVal == False:
-								messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the bot and this should be investigated immediately."
-								self.reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
-								print("Received kill code.  Terminating...")
-								exit()
-				except Exception as e:
-					print(e)
-
-				# Parse submisssions
-				try:
-					for submission in subreddit.new(limit=10):
-
-						# Ignore stickied posts
-						if submission.stickied == True:
-							continue
-
-						if submission.author is not None and submission.author != self.reddit.user.me():
-							parseText(submission, submission.title, True)
-							if submission.domain.split(".")[0] is not "self":
-								parseText(submission, submission.url, True)
-							elif submission.body is not None:
-								parseText(submission, submission.body, True)
-				except Exception as e:
-					pass
-
-			# Parse for paibot
-			for message in self.reddit.inbox.messages(limit=10):
-				if message.author.name in self.paibot.admins and "UPDATE" in message.body:
-					print("Recieved update command from " + message.author.name + "...")
-					try:
-						print("Pulling repository...")
-						call("git pull")
-						importlib.reload(updateable)
-						#message.reply("Successfully updated!")
-						print("Successfully updated!")
-					except Exception as e:
-						#message.reply("Error updating!")
-						print("Error updating!")
-						print(e)
-					break
-
-		except Exception as e:
-			print("---------------------------------\n")
-			print("An exception was thrown, trying again in 30 seconds")
-			print(e)
-			print("---------------------------------\n")
-			time.sleep(30)
-
-		return
-
 	# Parse content text and decide to act upon it
 	def parseText(self, comment, body, post):
 		"Parses the text of a comment and decides"
@@ -280,4 +212,56 @@ class redditBot:
 			with open(logFile, 'w') as fout:
 				fout.writelines(data[1:])
 			lineCount -= 1
+		return
+
+	# Main function
+	def runCycle(self):
+
+		try:
+			print('\n')
+			print("------------New Cycle------------\n")
+
+			# Cycle through subreddits
+			for subredditName in self.subreddits:
+				subreddit = self.reddit.subreddit(subredditName)
+
+				# Parse comments
+				try:
+					for comment in subreddit.comments(limit=100):
+						if comment.author is not None and comment.author != self.reddit.user.me():
+							rtnVal = parseText(comment, comment.body, False)
+
+							# Kill switch
+							if rtnVal == False:
+								messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the bot and this should be investigated immediately."
+								self.reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
+								print("Received kill code.  Terminating...")
+								exit()
+				except Exception as e:
+					print(e)
+
+				# Parse submisssions
+				try:
+					for submission in subreddit.new(limit=10):
+
+						# Ignore stickied posts
+						if submission.stickied == True:
+							continue
+
+						if submission.author is not None and submission.author != self.reddit.user.me():
+							parseText(submission, submission.title, True)
+							if submission.domain.split(".")[0] is not "self":
+								parseText(submission, submission.url, True)
+							elif submission.body is not None:
+								parseText(submission, submission.body, True)
+				except Exception as e:
+					pass
+
+		except Exception as e:
+			print("---------------------------------\n")
+			print("An exception was thrown, trying again in 30 seconds")
+			print(e)
+			print("---------------------------------\n")
+			time.sleep(30)
+
 		return
