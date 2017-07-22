@@ -28,11 +28,11 @@ class CnC:
 				if str.lower("update") in command:
 					g = git.cmd.Git()
 					g.pull()
-					self.reddit.reply(self.botnum + ": Affirm, updating")
+					submission.reply(self.botnum + ": Affirm, updating")
 					return True
 
 				if str.lower("ping") in command:
-					self.reddit.reply(self.botnum + ": Pong")
+					submission.reply(self.botnum + ": Pong")
 
 				with open('cncLog.txt', 'w') as log:
 					log.write(str(submission.id))
