@@ -219,51 +219,51 @@ class redditBot:
 	# Main function
 	def runCycle(self):
 
-		try:
-			print('\n')
-			print("------------New Cycle------------\n")
+		# try:
+		print('\n')
+		print("------------New Cycle------------\n")
 
-			# Cycle through subreddits
-			for subredditName in self.subreddits:
-				subreddit = self.reddit.subreddit(subredditName)
+		# Cycle through subreddits
+		for subredditName in self.subreddits:
+			subreddit = self.reddit.subreddit(subredditName)
 
-				# Parse comments
-				try:
-					for comment in subreddit.comments(limit=100):
-						if comment.author is not None and comment.author != self.reddit.user.me():
-							rtnVal = parseText(comment, comment.body, False)
+			# Parse comments
+			#try:
+			for comment in subreddit.comments(limit=100):
+				if comment.author is not None and comment.author != self.reddit.user.me():
+					rtnVal = parseText(comment, comment.body, False)
 
-							# Kill switch
-							if rtnVal == False:
-								messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the bot and this should be investigated immediately."
-								self.reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
-								print("Received kill code.  Terminating...")
-								exit()
-				except Exception as e:
-					print(e)
+					# Kill switch
+					if rtnVal == False:
+						messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the bot and this should be investigated immediately."
+						self.reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
+						print("Received kill code.  Terminating...")
+						exit()
+			# except Exception as e:
+			# 	print(e)
 
-				# Parse submisssions
-				try:
-					for submission in subreddit.new(limit=10):
+			# Parse submisssions
+			#try:
+			for submission in subreddit.new(limit=10):
 
-						# Ignore stickied posts
-						if submission.stickied == True:
-							continue
+				# Ignore stickied posts
+				if submission.stickied == True:
+					continue
 
-						if submission.author is not None and submission.author != self.reddit.user.me():
-							parseText(submission, submission.title, True)
-							if submission.domain.split(".")[0] is not "self":
-								parseText(submission, submission.url, True)
-							elif submission.body is not None:
-								parseText(submission, submission.body, True)
-				except Exception as e:
-					pass
+				if submission.author is not None and submission.author != self.reddit.user.me():
+					parseText(submission, submission.title, True)
+					if submission.domain.split(".")[0] is not "self":
+						parseText(submission, submission.url, True)
+					elif submission.body is not None:
+						parseText(submission, submission.body, True)
+			# except Exception as e:
+			# 	pass
 
-		except Exception as e:
-			print("---------------------------------\n")
-			print("An exception was thrown, trying again in 30 seconds")
-			print(e)
-			print("---------------------------------\n")
-			time.sleep(30)
+		# except Exception as e:
+		# 	print("---------------------------------\n")
+		# 	print("An exception was thrown, trying again in 30 seconds")
+		# 	print(e)
+		# 	print("---------------------------------\n")
+		# 	time.sleep(30)
 
 		return
