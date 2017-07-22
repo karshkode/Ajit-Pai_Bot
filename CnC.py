@@ -3,15 +3,15 @@ import git
 
 class CnC:
 
-	def __init__(self, reddit):
+	def __init__(self, bot):
 
-		self.reddit = reddit
+		self.reddit = bot.reddit
 
 		configFile = configparser.ConfigParser()
 		configFile.read('praw.ini')
 		self.c2 = configFile['admins']['c2']
 		self.admins = configFile['admins']['admin'].split(",")
-		self.botname = configFile['admins']['botname']
+		self.botname = bot.id
 
 		return
 

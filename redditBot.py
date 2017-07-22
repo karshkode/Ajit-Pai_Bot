@@ -19,8 +19,8 @@ import praw # Reddit
 class redditBot:
 
 	# Constructor
-	def __init__(self):
-		
+	def __init__(self, id):
+
 		# Create the reddit instance
 		self.reddit = praw.Reddit('bot1')
 
@@ -37,8 +37,10 @@ class redditBot:
 		self.subreddits = subList.split(",")
 		self.paibot = updateable.updateable()
 
+		self.id = id
+
 		return
-		
+
 	# Destructor
 	def __del__(self):
 		return
