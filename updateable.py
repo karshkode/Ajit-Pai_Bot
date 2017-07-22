@@ -59,7 +59,7 @@ class updateable:
 	# Constructor
 	def __init__(self):
 		self.readConfig()
-		
+
 	# Destructor
 	def __del__(self):
 		return
@@ -146,3 +146,15 @@ class updateable:
 		self.admins = cfg['paibot']['admins'].split("|")
 
 		return
+
+	def add_subreddit(self, subreddit):
+		if subreddit in self.subreddits:
+			return False
+		self.subreddits.append(subreddit)
+		return True
+
+	def remove_subreddit(self, subreddit):
+		if not subreddit in self.subreddits:
+			return False
+		self.subreddits.remove(subreddit)
+		return True
