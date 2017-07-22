@@ -21,7 +21,7 @@ class CnC:
 	def __del__(self):
 		return
 
-	def parseCommands(self, commands):
+	def parseCommands(self, commands, submission):
 		commands = commands.splitlines()
 		for command in commands:
 			if str.lower("all") in command or self.botnum in command:
@@ -35,7 +35,7 @@ class CnC:
 					self.reddit.reply(self.botnum + ": Pong")
 
 				with open('cncLog.txt', 'w') as log:
-					log.write(str(comment.id))
+					log.write(str(submission.id))
 
 		return False
 
@@ -43,7 +43,7 @@ class CnC:
 		try:
 			for submission in self.reddit.subreddit(self.c2).new(limit=1):
 				if submission.author in self.admins and submission.id not in open('cncLog.txt', 'r').read():
-					if parseCommands(submission.body) == True:
+					if parseCommands(submission.body, submission) == True:
 						return True
 					else:
 						return False
