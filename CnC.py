@@ -11,7 +11,7 @@ class CnC:
 		configFile.read('praw.ini')
 		self.c2 = configFile['admins']['c2']
 		self.admins = configFile['admins']['admin'].split(",")
-		self.botname = bot.id
+		self.bot = bot
 
 		return
 
@@ -22,15 +22,56 @@ class CnC:
 		commands = commands.splitlines()
 		restart = False
 		for command in commands:
-			if str.lower("all") in command or self.botname in command:
-				if str.lower("update") in command:
+			if str.lower("all") in command or self.bot.id in command:
+				if str.lower(" update ") in command:
 					g = git.cmd.Git()
 					g.pull()
-					submission.reply(self.botname + ": Affirm, updating")
+					submission.reply(self.bot.id + " - Affirm, updating")
 					restart = True
 
-				if str.lower("ping") in command:
-					submission.reply(self.botname + ": Pong")
+				if str.lower(" subreddit-add ") in command:
+					cmd = command.split()
+					success = 0
+					subreddit = ""
+					for i in xrange(0, cmd.length-1):
+						if tmp[i] == "subreddit-add":
+							subreddit = cmd[i+1]
+							add = self.bot.paibot.add_subreddit(subreddit)
+							if add:
+								success = 1
+							else:
+								success = -1
+							break
+					if success == -1:
+						submission.reply(self.bot.id + "- WARNING: Subreddit already included")
+					elif success == 0:
+						submission.reply(self.bot.id + " - ERROR: Unable to identify subreddit")
+					else:
+						submission.reply(self.bot + " - SUCCESS: " + subreddit + " added")
+
+				if str.lower(" subreddit-remove ") in command:
+					cmd = command.split()
+					success = 0
+					subreddit = ""
+					for i in xrange(0, cmd.length-1):
+						if tmp[i] == "subreddit-remove":
+							subreddit = cmd[i+1]
+							remove = self.bot.paibot.remove_subreddit(subreddit)
+							if remove:
+								success = 1
+							else:
+								success = -1
+							break
+					if success == -1:
+						submission.reply(self.bot.id + "- WARNING: Subreddit already not included")
+					elif success == 0:
+						submission.reply(self.bot.id + " - ERROR: Unable to identify subreddit")
+					else:
+						submission.reply(self.bot + " - SUCCESS: " + subreddit + " removed")
+
+
+				if str.lower(" ping ") in command:
+					submission.reply(self.bot.id + " - Pong")
 
 				with open('cncLog.txt', 'w') as log:
 					log.write(str(submission.id))
