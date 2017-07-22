@@ -33,7 +33,7 @@ while True:
 		bot.runCycle()
 
 		# Check for updates
-		updated = c2.CnC()
+		updated = c2.cnc()
 
 	importlib.reload(updateable)
 	importlib.reload(CnC)
