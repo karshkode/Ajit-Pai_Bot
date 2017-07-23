@@ -94,10 +94,6 @@ class updateable:
 		self.proNetNeutralityStrings = cfg['paibot']['proNetNeutralityStrings'].split("|")
 		self.antiNetNeutralityStrings = cfg['paibot']['antiNetNeutralityStrings'].split("|")
 
-		# Misc
-		self.subreddits = cfg['paibot']['subreddits'].split("|")
-		self.admins = cfg['paibot']['admins'].split("|")
-
 		return
 
 	def add_subreddit(self, subreddit):
