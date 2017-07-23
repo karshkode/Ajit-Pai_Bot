@@ -33,7 +33,7 @@ class redditBot:
 		random.seed(a=None)
 		configFile = configparser.ConfigParser()
 		configFile.read('praw.ini')
-		subList = configFile['bot1']['subreddits']
+		subList = configFile['admins']['subreddits']
 		self.subreddits = subList.split(",")
 		self.paibot = updateable.updateable()
 
@@ -46,21 +46,6 @@ class redditBot:
 	# Parse content text and decide to act upon it
 	def parseText(self, comment, body, post):
 		"Parses the text of a comment and decides"
-
-		#################
-		# Kill switch 	#
-		#################
-		try:
-			if comment.parent().author == self.reddit.user.me() and "ModBotCode:" in body:
-				killcfg = configparser.ConfigParser()
-				killcfg.read('praw.ini')
-				killcode = killcfg['bot1']['killcode']
-
-				if body == "ModBotCode:" + killcode and comment.author in killcfg['admins']['admin']:
-					self.replyContent(comment, "Copy that, I'm super broken! --> Terminating!!!")
-					return False
-		except Exception as e:
-			pass
 
 		#############################################
 		# Parse for potential content to reply to 	#
@@ -233,12 +218,6 @@ class redditBot:
 						if comment.author is not None and comment.author != self.reddit.user.me():
 							rtnVal = self.parseText(comment, comment.body, False)
 
-							# Kill switch
-							if rtnVal == False:
-								messageContent = "This is a notification that I received the kill code and self-terminated.  If you or another mod initiated the termination then ignore this message.  Otherwise it is possible someone is trolling the bot and this should be investigated immediately."
-								self.reddit.redditor("/r/KeepOurNetFree").message("Bot Termination Notice", messageContent)
-								print("Received kill code.  Terminating...")
-								exit()
 				except Exception as e:
 					print(e)
 
