@@ -210,7 +210,17 @@ class redditBot:
 
 			# Cycle through subreddits
 			for subredditName in self.subreddits:
-				subreddit = self.reddit.subreddit(subredditName)
+				
+				subreddit = None
+
+				# Determine single thread or entire subreddit
+				try:
+					if "https://" in subredditName:
+						submission = reddit.submission(url=subredditName)
+					else:
+						subreddit = self.reddit.subreddit(subredditName)
+				except Exception as e:
+					print(e)
 
 				# Parse comments
 				try:
