@@ -25,6 +25,7 @@ class CnC:
 		for command in commands:
 			try:				
 				command = command.split(" ")
+				replyStr = ""
 				if str.lower("all") in command[0] or self.botname in command[0]:
 
 					file = ""
@@ -36,29 +37,29 @@ class CnC:
 					if str.lower("update") in command[1]:
 						g = git.cmd.Git()
 						g.pull()
-						submission.reply(self.botname + " - Affirm, updating")
+						replyStr += (self.botname + " - Affirm, updating" + "\n")
 						restart = True
 
-					if str.lower("edit") in command[1]:
+					elif str.lower("edit") in command[1]:
 						configFile = configparser.ConfigParser()
 						configFile.read(file)
 						configFile.set(command[3], command[4], command[5])
 						with open(file, 'w') as cfg:
 							configFile.write(cfg)
-						submission.reply(self.botname + " - Affirm editing " + command[4])
+						replyStr += (self.botname + " - Affirm editing " + command[4] + "\n")
 						restart = True
 
-					if str.lower("add") in command[1]:
+					elif str.lower("add") in command[1]:
 						configFile = configparser.ConfigParser()
 						configFile.read(file)
 						existingVar = configFile[command[3]][command[4]]
 						configFile.set(command[3], command[4], existingVar + "," + command[5])
 						with open(file, 'w') as cfg:
 							configFile.write(cfg)
-						submission.reply(self.botname + " - Affirm, adding " + command[5])
+						replyStr += (self.botname + " - Affirm, adding " + command[5] + "\n")
 						restart = True
 
-					if str.lower("remove") in command[1]:
+					elif str.lower("remove") in command[1]:
 						configFile = configparser.ConfigParser()
 						configFile.read(file)
 						existingVar = configFile[command[3]][command[4]]
@@ -76,23 +77,26 @@ class CnC:
 							configFile.set(command[3], command[4], existingVar)
 							with open(file, 'w') as cfg:
 								configFile.write(cfg)
-							submission.reply(self.botname + " - Affirm, removing " + command[5])
+							replyStr += (self.botname + " - Affirm, removing " + command[5] + "\n")
 							restart = True
 						else:
-							submission.reply(self.botname + " - Error, " + command[5] + " not found")
+							replyStr += (self.botname + " - Error, " + command[5] + " not found" + "\n")
 
-					if str.lower("status") in command[1]:
-						submission.reply(self.botname + " - Alive\n\n" + self.subList)
+					elif str.lower("status") in command[1]:
+						replyStr += (self.botname + " - Alive\n\n" + self.subList + "\n")
 
-					if str.lower("die") in command[1]:
-						submission.reply(self.botname + " - Shutdown")
+					elif str.lower("die") in command[1]:
+						replyStr += (self.botname + " - Shutdown"  + "\n")
 						exit()
 
+				if submission != None:
 					with open('cncLog.txt', 'w') as log:
 						log.write(str(submission.id))
+					submission.reply(replyStr)
 
 				except Exception as e:
-					submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
+					if submission != None:
+						submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
 					print(e)
 
 		if restart == True:
