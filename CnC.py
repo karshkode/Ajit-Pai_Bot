@@ -13,6 +13,7 @@ class CnC:
 		self.admins = configFile['admins']['admin'].split(",")
 		self.botname = configFile['admins']['botname']
 		self.subList = configFile['admins']['subreddits']
+		self.backupc2 = configFile['admins']['backupc2']
 
 		return
 
@@ -94,10 +95,10 @@ class CnC:
 						log.write(str(submission.id))
 					submission.reply(replyStr)
 
-				except Exception as e:
-					if submission != None:
-						submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
-					print(e)
+			except Exception as e:
+				if submission != None:
+					submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
+				print(e)
 
 		if restart == True:
 			return True
@@ -117,4 +118,11 @@ class CnC:
 		except Exception as e:
 			print("CnC failure")
 			print(e)
+
+			try:
+				headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'}
+				self.parseCommands(requests.get(self.backupc2, headers=headers).content, None)
+			except Exception as e:
+				print("Total CnC Failure")
+				print(e)
 			return False
