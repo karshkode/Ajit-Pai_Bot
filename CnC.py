@@ -31,10 +31,13 @@ class CnC:
 				if str.lower("all") in command[0] or self.botname in command[0]:
 
 					file = ""
-					if "praw" in command[2]:
-						file = "praw.ini"
-					elif "config" in command[2]:
-						file = "config.cfg"
+					try:
+						if "praw" in command[2]:
+							file = "praw.ini"
+						elif "config" in command[2]:
+							file = "config.cfg"
+					except Exception:
+						pass
 
 					if str.lower("update") in command[1]:
 						g = git.cmd.Git()
@@ -104,8 +107,6 @@ class CnC:
 						exit()
 
 				if submission != None:
-					with open('cncLog.txt', 'w') as log:
-						log.write(str(submission.id))
 					submission.reply(replyStr)
 
 			except Exception as e:
@@ -122,6 +123,8 @@ class CnC:
 		try:
 			for submission in self.reddit.subreddit(self.c2).new(limit=1):
 				if submission.author in self.admins and submission.id not in open('cncLog.txt', 'r').read():
+					with open('cncLog.txt', 'w') as log:
+						log.write(str(submission.id))
 					if self.parseCommands(submission.selftext, submission) == True:
 						return True
 					else:
