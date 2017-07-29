@@ -34,6 +34,7 @@ class redditBot:
 		configFile = configparser.ConfigParser()
 		configFile.read('praw.ini')
 		subList = configFile['admins']['subreddits']
+		self.status = configFile['admins']['status']
 		self.subreddits = subList.split(",")
 		self.paibot = updateable.updateable()
 
@@ -204,6 +205,10 @@ class redditBot:
 	# Main function
 	def runCycle(self):
 
+		if "idle" in self.status:
+			sleep(30)
+			return
+
 		try:
 			print('\n')
 			print("------------New Cycle------------\n")
@@ -249,10 +254,8 @@ class redditBot:
 					pass
 
 		except Exception as e:
-			print("---------------------------------\n")
 			print("An exception was thrown, trying again in 30 seconds")
 			print(e)
-			print("---------------------------------\n")
 			time.sleep(30)
 
 		return

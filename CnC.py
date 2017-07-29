@@ -10,6 +10,7 @@ class CnC:
 		configFile = configparser.ConfigParser()
 		configFile.read('praw.ini')
 		self.c2 = configFile['admins']['c2']
+		self.status = configFile['admins']['status']
 		self.admins = configFile['admins']['admin'].split(",")
 		self.botname = configFile['admins']['botname']
 		self.subList = configFile['admins']['subreddits']
@@ -38,7 +39,7 @@ class CnC:
 					if str.lower("update") in command[1]:
 						g = git.cmd.Git()
 						g.pull()
-						replyStr += (self.botname + " - Affirm, updating" + "\n")
+						replyStr += (self.botname + " - Affirm, updating" + "\n\n")
 						restart = True
 
 					elif str.lower("edit") in command[1]:
@@ -47,7 +48,7 @@ class CnC:
 						configFile.set(command[3], command[4], command[5])
 						with open(file, 'w') as cfg:
 							configFile.write(cfg)
-						replyStr += (self.botname + " - Affirm editing " + command[4] + "\n")
+						replyStr += (self.botname + " - Affirm editing " + command[4] + "\n\n")
 						restart = True
 
 					elif str.lower("add") in command[1]:
@@ -57,7 +58,7 @@ class CnC:
 						configFile.set(command[3], command[4], existingVar + "," + command[5])
 						with open(file, 'w') as cfg:
 							configFile.write(cfg)
-						replyStr += (self.botname + " - Affirm, adding " + command[5] + "\n")
+						replyStr += (self.botname + " - Affirm, adding " + command[5] + "\n\n")
 						restart = True
 
 					elif str.lower("remove") in command[1]:
@@ -78,16 +79,28 @@ class CnC:
 							configFile.set(command[3], command[4], existingVar)
 							with open(file, 'w') as cfg:
 								configFile.write(cfg)
-							replyStr += (self.botname + " - Affirm, removing " + command[5] + "\n")
+							replyStr += (self.botname + " - Affirm, removing " + command[5] + "\n\n")
 							restart = True
 						else:
-							replyStr += (self.botname + " - Error, " + command[5] + " not found" + "\n")
+							replyStr += (self.botname + " - Error, " + command[5] + " not found" + "\n\n")
 
 					elif str.lower("status") in command[1]:
-						replyStr += (self.botname + " - Alive\n\n" + self.subList + "\n")
+						replyStr += (self.botname + " - " + self.status + "\n" + self.subList + "\n\n")
+
+					elif str.lower("idle") in command[1]:
+						configFile.set('status', 'idle')
+						with open(file, 'w') as cfg:
+							configFile.write(cfg)
+						replyStr += (self.botname + " - Affirm, idling "+ "\n\n")
+
+					elif str.lower("resume") in command[1]:
+						configFile.set('status', 'alive')
+						with open(file, 'w') as cfg:
+							configFile.write(cfg)
+						replyStr += (self.botname + " - Affirm, idling "+ "\n\n")
 
 					elif str.lower("die") in command[1]:
-						replyStr += (self.botname + " - Shutdown"  + "\n")
+						replyStr += (self.botname + " - Shutdown"  + "\n\n")
 						exit()
 
 				if submission != None:
