@@ -58,7 +58,9 @@ class CnC:
 						configFile = configparser.ConfigParser()
 						configFile.read(file)
 						existingVar = configFile[command[3]][command[4]]
-						configFile.set(command[3], command[4], existingVar + "," + command[5])
+						if len(existingVar) >= 1:
+							existingVar += ","
+						configFile.set(command[3], command[4], existingVar + command[5])
 						with open(file, 'w') as cfg:
 							configFile.write(cfg)
 						replyStr += (self.botname + " - Affirm, adding " + command[5] + "\n\n")
@@ -88,7 +90,7 @@ class CnC:
 							replyStr += (self.botname + " - Error, " + command[5] + " not found" + "\n\n")
 
 					elif str.lower("status") in command[1]:
-						replyStr += (self.botname + " - " + self.status + "\n" + self.subList + "\n\n")
+						replyStr += (self.botname + " - " + self.status + " on " + self.subList + "\n\n")
 
 					elif str.lower("idle") in command[1]:
 						configFile.set('status', 'idle')
