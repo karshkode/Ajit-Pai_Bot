@@ -23,77 +23,77 @@ class CnC:
 		commands = commands.splitlines()
 		restart = False
 		for command in commands:
-			command = command.split(" ")
-			if str.lower("all") in command[0] or self.botname in command[0]:
-				if str.lower("update") in command[1]:
-					g = git.cmd.Git()
-					g.pull()
-					submission.reply(self.botname + " - Affirm, updating")
-					restart = True
+			try:				
+				command = command.split(" ")
+				if str.lower("all") in command[0] or self.botname in command[0]:
 
-				if str.lower("edit") in command[1]:
-					configFile = configparser.ConfigParser()
-					configFile.read('praw.ini')
-					try:
-						configFile.set(command[2], command[3], command[4])
-						with open('praw.ini', 'w') as cfg:
-							configFile.write(cfg)
-						submission.reply(self.botname + " - Affirm editing " + command[3])
+					file = ""
+					if "praw" in command[2]:
+						file = "praw.ini"
+					elif "config" in command[2]:
+						file = "config.cfg"
+
+					if str.lower("update") in command[1]:
+						g = git.cmd.Git()
+						g.pull()
+						submission.reply(self.botname + " - Affirm, updating")
 						restart = True
-					except Exception as e:
-						submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
-						print(e)
 
-				if str.lower("add") in command[1]:
-					configFile = configparser.ConfigParser()
-					configFile.read('praw.ini')
-					existingVar = configFile[command[2]][command[3]]
-					try:
-						configFile.set(command[2], command[3], existingVar + "," + command[4])
-						with open('praw.ini', 'w') as cfg:
+					if str.lower("edit") in command[1]:
+						configFile = configparser.ConfigParser()
+						configFile.read(file)
+						configFile.set(command[3], command[4], command[5])
+						with open(file, 'w') as cfg:
 							configFile.write(cfg)
-						submission.reply(self.botname + " - Affirm, adding " + command[4])
+						submission.reply(self.botname + " - Affirm editing " + command[4])
 						restart = True
-					except Exception as e:
-						submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
-						print(e)
 
-				if str.lower("remove") in command[1]:
-					configFile = configparser.ConfigParser()
-					configFile.read('praw.ini')
-					existingVar = configFile[command[2]][command[3]]
-					replaceable = True
+					if str.lower("add") in command[1]:
+						configFile = configparser.ConfigParser()
+						configFile.read(file)
+						existingVar = configFile[command[3]][command[4]]
+						configFile.set(command[3], command[4], existingVar + "," + command[5])
+						with open(file, 'w') as cfg:
+							configFile.write(cfg)
+						submission.reply(self.botname + " - Affirm, adding " + command[5])
+						restart = True
 
-					if ("," + command[4]) in existingVar:
-						replaceStr = "," + command[4]
-					elif (command[4] + ",") in existingVar:
-						replaceStr = command[4] + ","
-					else:
-						replaceable = False
+					if str.lower("remove") in command[1]:
+						configFile = configparser.ConfigParser()
+						configFile.read(file)
+						existingVar = configFile[command[3]][command[4]]
+						replaceable = True
 
-					if replaceable == True:
-						existingVar = existingVar.replace(replaceStr, "")
-						try:
-							configFile.set(command[2], command[3], existingVar)
-							with open('praw.ini', 'w') as cfg:
+						if ("," + command[5]) in existingVar:
+							replaceStr = "," + command[5]
+						elif (command[5] + ",") in existingVar:
+							replaceStr = command[5] + ","
+						else:
+							replaceable = False
+
+						if replaceable == True:
+							existingVar = existingVar.replace(replaceStr, "")
+							configFile.set(command[3], command[4], existingVar)
+							with open(file, 'w') as cfg:
 								configFile.write(cfg)
-							submission.reply(self.botname + " - Affirm, removing " + command[4])
+							submission.reply(self.botname + " - Affirm, removing " + command[5])
 							restart = True
-						except Exception as e:
-							submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
-							print(e)
-					else:
-						submission.reply(self.botname + " - Error, " + command[4] + " not found")
+						else:
+							submission.reply(self.botname + " - Error, " + command[5] + " not found")
 
-				if str.lower("status") in command[1]:
-					submission.reply(self.botname + " - Alive\n\n" + self.subList)
+					if str.lower("status") in command[1]:
+						submission.reply(self.botname + " - Alive\n\n" + self.subList)
 
-				if str.lower("die") in command[1]:
-					submission.reply(self.botname + " - Shutdown")
-					exit()
+					if str.lower("die") in command[1]:
+						submission.reply(self.botname + " - Shutdown")
+						exit()
 
-				with open('cncLog.txt', 'w') as log:
-					log.write(str(submission.id))
+					with open('cncLog.txt', 'w') as log:
+						log.write(str(submission.id))
+
+				except Exception as e:
+					submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
+					print(e)
 
 		if restart == True:
 			return True
