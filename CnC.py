@@ -98,10 +98,13 @@ class CnC:
 					elif str.lower("status") in command[1]:
 						replyStr += (self.botname + " - " + self.status + " on " + self.subList + "\n\n")
 
+					elif str.lower("vomit") in command[1]:
+						replyStr += (self.botname) + " - " + 
+
 					elif str.lower("idle") in command[1]:
 						configFile = configparser.ConfigParser()
 						configFile.read("praw.ini")
-						configFile.set('status', 'idle')
+						configFile.set('admins', 'status', 'idle')
 						with open("praw.ini", 'w') as cfg:
 							configFile.write(cfg)
 						self.status = "idle"
@@ -110,7 +113,7 @@ class CnC:
 					elif str.lower("resume") in command[1]:
 						configFile = configparser.ConfigParser()
 						configFile.read("praw.ini")
-						configFile.set('status', 'alive')
+						configFile.set('admins', 'status', 'alive')
 						with open("praw.ini", 'w') as cfg:
 							configFile.write(cfg)
 						self.status = "alive"
@@ -142,7 +145,7 @@ class CnC:
 					if self.c2Failure == True:
 						configFile = configparser.ConfigParser()
 						configFile.read("praw.ini")
-						configFile.set('status', 'alive')
+						configFile.set('admins', 'status', 'alive')
 						with open("praw.ini", 'w') as cfg:
 							configFile.write(cfg)
 						self.status = "alive"
@@ -164,7 +167,7 @@ class CnC:
 					if self.status != "idle":
 						configFile = configparser.ConfigParser()
 						configFile.read("praw.ini")
-						configFile.set('status', 'idle')
+						configFile.set('admins', 'status', 'idle')
 						with open("praw.ini", 'w') as cfg:
 							configFile.write(cfg)
 						self.status = "idle"
