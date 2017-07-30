@@ -26,10 +26,10 @@ class CnC:
 	def parseCommands(self, commands, submission):
 		commands = commands.splitlines()
 		restart = False
+		replyStr = ""
 		for command in commands:
 			try:				
 				command = command.split(" ")
-				replyStr = ""
 				if str.lower("all") in command[0] or self.botname in command[0]:
 
 					file = ""
@@ -119,13 +119,13 @@ class CnC:
 						replyStr += (self.botname + " - Shutdown"  + "\n\n")
 						exit()
 
-				if submission != None:
-					submission.reply(replyStr)
-
 			except Exception as e:
 				if submission != None:
-					submission.reply(self.botname + " - Instructions unclear, dick stuck in ceiling fan")
+					replyStr += (self.botname + " - Instructions unclear, dick stuck in ceiling fan" + "\n\n")
 				print(e)
+		
+		if len(replyStr) > 1 and submission != None:
+			submission.reply(replyStr)
 
 		if restart == True:
 			return True
