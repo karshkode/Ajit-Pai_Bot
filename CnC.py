@@ -1,4 +1,5 @@
 import configparser
+import requests
 import git
 
 class CnC:
