@@ -227,7 +227,7 @@ class redditBot:
 				# Determine single thread or entire subreddit
 				try:
 					if "https://" in subredditName:
-						submission = self.reddit.submission(url=subredditName)
+						subreddit = self.reddit.submission(url=subredditName)
 					else:
 						subreddit = self.reddit.subreddit(subredditName)
 				except Exception as e:
