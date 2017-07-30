@@ -206,7 +206,7 @@ class redditBot:
 	def runCycle(self):
 
 		if "idle" in self.status:
-			sleep(30)
+			time.sleep(30)
 			return
 
 		try:
