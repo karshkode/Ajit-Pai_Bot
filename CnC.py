@@ -99,6 +99,8 @@ class CnC:
 						replyStr += (self.botname + " - " + self.status + " on " + self.subList + "\n\n")
 
 					elif str.lower("idle") in command[1]:
+						configFile = configparser.ConfigParser()
+						configFile.read("praw.ini")
 						configFile.set('status', 'idle')
 						with open("praw.ini", 'w') as cfg:
 							configFile.write(cfg)
@@ -106,6 +108,8 @@ class CnC:
 						replyStr += (self.botname + " - Affirm, idling "+ "\n\n")
 
 					elif str.lower("resume") in command[1]:
+						configFile = configparser.ConfigParser()
+						configFile.read("praw.ini")
 						configFile.set('status', 'alive')
 						with open("praw.ini", 'w') as cfg:
 							configFile.write(cfg)
@@ -136,6 +140,8 @@ class CnC:
 					with open('cncLog.txt', 'w+') as log:
 						log.write(str(submission.id))
 					if self.c2Failure == True:
+						configFile = configparser.ConfigParser()
+						configFile.read("praw.ini")
 						configFile.set('status', 'alive')
 						with open("praw.ini", 'w') as cfg:
 							configFile.write(cfg)
@@ -156,6 +162,8 @@ class CnC:
 				response = requests.get(self.backupc2, headers=headers)
 				if response.status_code == 404:
 					if self.status != "idle":
+						configFile = configparser.ConfigParser()
+						configFile.read("praw.ini")
 						configFile.set('status', 'idle')
 						with open("praw.ini", 'w') as cfg:
 							configFile.write(cfg)
