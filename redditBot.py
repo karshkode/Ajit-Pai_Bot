@@ -221,43 +221,48 @@ class redditBot:
 
 			# Cycle through subreddits
 			for subredditName in self.subreddits:
-				
-				subreddit = None
 
 				# Determine single thread or entire subreddit
-				try:
-					if "https://" in subredditName:
-						subreddit = self.reddit.submission(url=subredditName)
-					else:
-						subreddit = self.reddit.subreddit(subredditName)
-				except Exception as e:
-					print(e)
+				if "https://" in subredditName:
+					submission = self.reddit.submission(url=subredditName)
 
-				# Parse comments
-				try:
-					for comment in subreddit.comments(limit=100):
-						if comment.author is not None and comment.author != self.reddit.user.me():
-							rtnVal = self.parseText(comment, comment.body, False)
+					# Parse thread comments
+					try:
+						for comment in submission.comments:
+							if comment.author is not None and comment.author != self.reddit.user.me():
+								self.parseText(comment, comment.body, False)
 
-				except Exception as e:
-					print(e)
+					except Exception as e:
+						print(e)
 
-				# Parse submisssions
-				try:
-					for submission in subreddit.new(limit=10):
+				else:
+					subreddit = self.reddit.subreddit(subredditName)
 
-						# Ignore stickied posts
-						if submission.stickied == True:
-							continue
+					# Parse subreddit comments
+					try:
+						for comment in subreddit.comments(limit=100):
+							if comment.author is not None and comment.author != self.reddit.user.me():
+								self.parseText(comment, comment.body, False)
 
-						if submission.author is not None and submission.author != self.reddit.user.me():
-							self.parseText(submission, submission.title, True)
-							if submission.domain.split(".")[0] is not "self":
-								self.parseText(submission, submission.url, True)
-							elif submission.body is not None:
-								self.parseText(submission, submission.body, True)
-				except Exception as e:
-					pass
+					except Exception as e:
+						print(e)
+
+					# Parse submisssions
+					try:
+						for submission in subreddit.new(limit=10):
+
+							# Ignore stickied posts
+							if submission.stickied == True:
+								continue
+
+							if submission.author is not None and submission.author != self.reddit.user.me():
+								self.parseText(submission, submission.title, True)
+								if submission.domain.split(".")[0] is not "self":
+									self.parseText(submission, submission.url, True)
+								elif submission.body is not None:
+									self.parseText(submission, submission.body, True)
+					except Exception as e:
+						pass
 
 		except Exception as e:
 			print("An exception was thrown, trying again in 30 seconds")
