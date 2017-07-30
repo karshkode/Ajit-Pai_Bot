@@ -82,24 +82,20 @@ class CnC:
 							replaceStr = "," + command[5]
 						elif (command[5] + ",") in existingVar:
 							replaceStr = command[5] + ","
-						else:
-							replaceable = False
 
-						if replaceable == True:
-							existingVar = existingVar.replace(replaceStr, "")
-							configFile.set(command[3], command[4], existingVar)
-							with open(file, 'w') as cfg:
-								configFile.write(cfg)
-							replyStr += (self.botname + " - Affirm, removing " + command[5] + "\n\n")
-							restart = True
-						else:
-							replyStr += (self.botname + " - Error, " + command[5] + " not found" + "\n\n")
+						existingVar = existingVar.replace(replaceStr, "")
+						configFile.set(command[3], command[4], existingVar)
+						with open(file, 'w') as cfg:
+							configFile.write(cfg)
+						replyStr += (self.botname + " - Affirm, removing " + command[5] + "\n\n")
+						restart = True
 
 					elif str.lower("status") in command[1]:
 						replyStr += (self.botname + " - " + self.status + " on " + self.subList + "\n\n")
 
 					elif str.lower("vomit") in command[1]:
-						replyStr += (self.botname) + " - " + 
+						with open("config.cfg", 'r') as vomit:
+							replyStr += (self.botname + " - " + vomit.read())
 
 					elif str.lower("idle") in command[1]:
 						configFile = configparser.ConfigParser()
