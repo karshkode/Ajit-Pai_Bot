@@ -56,7 +56,7 @@ class redditBot:
 			# AMA mode
 			if "ama" in self.status:
 				if any(keyString in str.lower(body) for keyString in self.paibot.questionKeyStrings):
-					reply = slef.generateReply(self.paibot.answer)
+					reply = self.generateReply(self.paibot.answer)
 					self.replyContent(comment, reply)
 
 			# Comment is related to net neutrality
