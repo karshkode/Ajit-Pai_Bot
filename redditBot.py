@@ -53,8 +53,14 @@ class redditBot:
 		#############################################
 		try:
 
+			# AMA mode
+			if "ama" in self.status:
+				if any(keyString in str.lower(body) for keyString in self.paibot.questionKeyStrings):
+					reply = slef.generateReply(self.paibot.answer)
+					self.replyContent(comment, reply)
+
 			# Comment is related to net neutrality
-			if any(keyString in str.lower(body) for keyString in self.paibot.netNeutralityKeyStrings):
+			elif any(keyString in str.lower(body) for keyString in self.paibot.netNeutralityKeyStrings):
 
 				# Pro net neutrality scan
 				proNN = 0

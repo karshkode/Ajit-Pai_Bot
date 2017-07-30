@@ -89,7 +89,41 @@ class updateable:
 				self.negative_signature,
 				self.negative_complete]
 
+		# Question answer strings
+		self.answer_adjective = cfg['paibot']['answer_adjective'].split("|")
+		self.answer_adverb = cfg['paibot']['answer_adverb'].split("|")
+		self.answer_titles = cfg['paibot']['answer_titles'].split("|")
+		self.answer_introduction_1 = cfg['paibot']['answer_introduction_1'].split("|")
+		self.answer_introduction_2 = cfg['paibot']['answer_introduction_2'].split("|")
+		self.answer_introduction_3 = cfg['paibot']['answer_introduction_3'].split("|")
+		self.answer_body_start = cfg['paibot']['answer_body_start'].split("|")
+		self.answer_body_continuation_1 = cfg['paibot']['answer_body_continuation_1'].split("|")
+		self.answer_body_continuation_2 = cfg['paibot']['answer_body_continuation_2'].split("|")
+		self.answer_body_continuation_3 = cfg['paibot']['answer_body_continuation_3'].split("|")
+		self.answer_conclusion_1 = cfg['paibot']['answer_conclusion_1'].split("|")
+		self.answer_conclusion_2 = cfg['paibot']['answer_conclusion_2'].split("|")
+		self.answer_conclusion_3 = cfg['paibot']['answer_conclusion_3'].split("|")
+		self.answer_signature =  cfg['paibot']['answer_signature'].split("|")
+		self.answer_complete = cfg['paibot']['answer_complete'].split("|")
+
+		self.answer = [self.answer_adjective,
+				self.answer_adverb,
+				self.answer_titles,
+				self.answer_introduction_1,
+				self.answer_introduction_2,
+				self.answer_introduction_3,
+				self.answer_body_start,
+				self.answer_body_continuation_1,
+				self.answer_body_continuation_2,
+				self.answer_body_continuation_3,
+				self.answer_conclusion_1,
+				self.answer_conclusion_2,
+				self.answer_signature,
+				self.answer_complete
+		]
+
 		# List of strings to identify a valid comment to reply to
+		self.questionKeyStrings = cfg['paibot']['questionKeyStrings'].split("|")
 		self.netNeutralityKeyStrings = cfg['paibot']['netNeutralityKeyStrings'].split("|")
 		self.proNetNeutralityStrings = cfg['paibot']['proNetNeutralityStrings'].split("|")
 		self.antiNetNeutralityStrings = cfg['paibot']['antiNetNeutralityStrings'].split("|")
