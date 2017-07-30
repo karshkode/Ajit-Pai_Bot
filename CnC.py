@@ -16,6 +16,8 @@ class CnC:
 		self.subList = configFile['admins']['subreddits']
 		self.backupc2 = configFile['admins']['backupc2']
 
+		self.c2Failure = False
+
 		return
 
 	def __del__(self):
@@ -57,7 +59,11 @@ class CnC:
 					elif str.lower("add") in command[1]:
 						configFile = configparser.ConfigParser()
 						configFile.read(file)
-						existingVar = configFile[command[3]][command[4]]
+						existingVar = ""
+						try:
+							existingVar = configFile[command[3]][command[4]]
+						except Exception:
+							pass
 						if len(existingVar) >= 1:
 							existingVar += ","
 						configFile.set(command[3], command[4], existingVar + command[5])
@@ -94,15 +100,17 @@ class CnC:
 
 					elif str.lower("idle") in command[1]:
 						configFile.set('status', 'idle')
-						with open(file, 'w') as cfg:
+						with open("praw.ini", 'w') as cfg:
 							configFile.write(cfg)
+						self.status = "idle"
 						replyStr += (self.botname + " - Affirm, idling "+ "\n\n")
 
 					elif str.lower("resume") in command[1]:
 						configFile.set('status', 'alive')
-						with open(file, 'w') as cfg:
+						with open("praw.ini", 'w') as cfg:
 							configFile.write(cfg)
-						replyStr += (self.botname + " - Affirm, idling "+ "\n\n")
+						self.status = "alive"
+						replyStr += (self.botname + " - Affirm, resuming "+ "\n\n")
 
 					elif str.lower("die") in command[1]:
 						replyStr += (self.botname + " - Shutdown"  + "\n\n")
@@ -125,8 +133,14 @@ class CnC:
 		try:
 			for submission in self.reddit.subreddit(self.c2).new(limit=1):
 				if submission.author in self.admins and submission.id not in open('cncLog.txt', 'r').read():
-					with open('cncLog.txt', 'w') as log:
+					with open('cncLog.txt', 'w+') as log:
 						log.write(str(submission.id))
+					if self.c2Failure == True:
+						configFile.set('status', 'alive')
+						with open("praw.ini", 'w') as cfg:
+							configFile.write(cfg)
+						self.status = "alive"
+						self.c2Failure = False
 					if self.parseCommands(submission.selftext, submission) == True:
 						return True
 					else:
@@ -134,12 +148,26 @@ class CnC:
 				else:
 					return False
 		except Exception as e:
+			self.c2Failure = True
 			print("CnC failure")
 			print(e)
-
 			try:
 				headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'}
-				self.parseCommands(requests.get(self.backupc2, headers=headers).content, None)
+				response = requests.get(self.backupc2, headers=headers)
+				if response.status_code == 404:
+					if self.status != "idle":
+						configFile.set('status', 'idle')
+						with open("praw.ini", 'w') as cfg:
+							configFile.write(cfg)
+						self.status = "idle"
+				else:
+					responseText = split(response.content, 1)
+					with open('cncLogBackup.txt', 'w+') as log:
+						log.write(str(responseText[0]))
+					if self.parseCommands(responseText[1], None) == True:
+						return True
+					else:
+						return False
 			except Exception as e:
 				print("Total CnC Failure")
 				print(e)
