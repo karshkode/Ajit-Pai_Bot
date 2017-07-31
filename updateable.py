@@ -54,6 +54,7 @@ class updateable:
 				self.positive_body_continuation_3,
 				self.positive_conclusion_1,
 				self.positive_conclusion_2,
+				self.positive_conclusion_3,
 				self.positive_signature,
 				self.positive_complete]
 
@@ -86,6 +87,7 @@ class updateable:
 				self.negative_body_continuation_3,
 				self.negative_conclusion_1,
 				self.negative_conclusion_2,
+				self.negative_conclusion_3,
 				self.negative_signature,
 				self.negative_complete]
 
@@ -118,6 +120,7 @@ class updateable:
 				self.answer_body_continuation_3,
 				self.answer_conclusion_1,
 				self.answer_conclusion_2,
+				self.answer_conclusion_3,
 				self.answer_signature,
 				self.answer_complete
 		]
