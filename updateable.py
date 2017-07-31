@@ -38,6 +38,7 @@ class updateable:
 		self.positive_body_continuation_3 = cfg['paibot']['positive_body_continuation_3'].split("|")
 		self.positive_conclusion_1 = cfg['paibot']['positive_conclusion_1'].split("|")
 		self.positive_conclusion_2 = cfg['paibot']['positive_conclusion_2'].split("|")
+		self.positive_conclusion_3 = cfg['paibot']['positive_conclusion_3'].split("|")
 		self.positive_signature = cfg['paibot']['positive_signature'].split("|")
 		self.positive_complete = cfg['paibot']['positive_complete'].split("|")
 
