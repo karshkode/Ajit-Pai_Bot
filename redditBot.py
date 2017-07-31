@@ -141,9 +141,9 @@ class redditBot:
 			text = text[:-1]
 			rText = ""
 			if text[-1] == '~':
-				rText = text[:-1] + "\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
+				rText = text[:-1] + "\n\n> I am a parody bot. Feel free to block me."
 			else:
-				rText = text + "\n\nAjit Pai - Chairman FCC;  ajit.pai@fcc.gov;  (1) 202-418-2000\n\n> I am a parody bot. Feel free to block me, or [PM me](https://www.reddit.com/message/compose/?to=Ajit-Pai) to add your subreddit to my blacklist."
+				rText = text + "\n\nAjit Pai - Chairman FCC;  ajit.pai@fcc.gov;  (1) 202-418-2000\n\n> I am a parody bot. Feel free to block me."
 			with open('replyLog.txt', 'a') as replyLog:
 				comment.reply(rText)
 				try:
