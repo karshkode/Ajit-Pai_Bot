@@ -224,7 +224,7 @@ class redditBot:
 		# Add ability for bot to self post and store link in var for access later.
 		if "startthread" in self.status:
 			try:
-				cfg = configparser..ConfigParser()
+				cfg = configparser.ConfigParser()
 				cfg.read("config.cfg")
 				threadTitle = cfg['thread']['title']
 				threadSelfText = cfg['thread']['selftext']
@@ -242,7 +242,7 @@ class redditBot:
 					else:
 						listOfThreads = listOfThreads + "," + listOfThreads
 
-				configFile = configparser..ConfigParser()
+				configFile = configparser.ConfigParser()
 				configFile.read("praw.ini")
 				configFile.set('admins', 'status', 'ama')
 				configFile.set('admins', 'threads', listOfThreads)
