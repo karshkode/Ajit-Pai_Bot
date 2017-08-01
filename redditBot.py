@@ -231,7 +231,7 @@ class redditBot:
 			time.sleep(30)
 			return
 
-		# Add ability for bot to self post and store link in var for access later.
+		# Self post and store link in var for AMA.
 		if "startthread" in self.status:
 			try:
 				cfg = configparser.ConfigParser()
@@ -245,8 +245,8 @@ class redditBot:
 					subreddit = self.reddit.subreddit(subredditName)
 
 					thread = subreddit.submit(threadTitle, selftext=threadSelfText, resubmit=True, send_replies=False)
-					thread.permalink
-					print("Posted new thread: " + threadTitle + " -> " + thread.permalink)
+					threadURL = "https://www.reddit.com" + thread.permalink
+					print("Posted new thread: " + threadTitle + " -> " + threadURL)
 					if len(listOfThreads) == 0:
 						listOfThreads += thread.permalink
 					else:
