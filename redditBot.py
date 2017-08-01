@@ -255,7 +255,7 @@ class redditBot:
 		if "ama" in self.status:
 			try:
 				for submission in self.threads:
-					submission = self.reddit.submission(url=subredditName)
+					submission = self.reddit.submission(url=submission)
 
 					# Parse thread comments
 					try:
