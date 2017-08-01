@@ -262,9 +262,10 @@ class redditBot:
 						for comment in submission.comments:
 							if comment.author is not None and comment.author != self.reddit.user.me():
 								self.parseText(comment, comment.body, False)
-
+					except Exception as e:
+						print(e)
 			except Exception as e:
-					print(e)
+				print(e)
 
 		else:
 			try:
@@ -277,7 +278,6 @@ class redditBot:
 						for comment in subreddit.comments(limit=100):
 							if comment.author is not None and comment.author != self.reddit.user.me():
 								self.parseText(comment, comment.body, False)
-
 					except Exception as e:
 						print(e)
 
