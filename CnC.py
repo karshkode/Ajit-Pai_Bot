@@ -15,6 +15,7 @@ class CnC:
 		self.admins = configFile['admins']['admin'].split(",")
 		self.botname = configFile['admins']['botname']
 		self.subList = configFile['admins']['subreddits']
+		self.threadList = configFile['admins']['threads']
 		self.backupc2 = configFile['admins']['backupc2']
 
 		self.c2Failure = False
@@ -92,7 +93,12 @@ class CnC:
 						restart = True
 
 					elif str.lower("status") in command[1]:
-						replyStr += (self.botname + " - " + self.status + " on " + self.subList + "\n\n")
+						onVar = ""
+						if "ama" in self.status:
+							onVar = self.threadList
+						else:
+							onVar = self.subList
+						replyStr += (self.botname + " - " + self.status + " on " + onVar + "\n\n")
 
 					elif str.lower("vomit") in command[1]:
 						with open("config.cfg", 'r') as vomit:
