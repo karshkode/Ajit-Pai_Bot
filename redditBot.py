@@ -235,7 +235,7 @@ class redditBot:
 					subreddit = self.reddit.subreddit(subredditName)
 
 					thread = subreddit.submit(threadTitle, selftext=threadSelfText, resubmit=True, send_replies=False)
-					trhead.permalink
+					thread.permalink
 					print("Posted new thread: " + threadTitle + " -> " + thread.permalink)
 					if len(listOfThreads) == 0:
 						listOfThreads += thread.permalink
