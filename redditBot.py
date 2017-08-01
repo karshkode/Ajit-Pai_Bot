@@ -298,9 +298,9 @@ class redditBot:
 					except Exception as e:
 						pass
 
-		except Exception as e:
-			print("An exception was thrown, trying again in 30 seconds")
-			print(e)
-			time.sleep(30)
+			except Exception as e:
+				print("An exception was thrown, trying again in 30 seconds")
+				print(e)
+				time.sleep(30)
 
 		return
