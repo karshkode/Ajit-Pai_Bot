@@ -39,7 +39,7 @@ class updateable:
 		self.positive_conclusion_1 = cfg['paibot']['positive_conclusion_1'].split("|")
 		self.positive_conclusion_2 = cfg['paibot']['positive_conclusion_2'].split("|")
 		self.positive_conclusion_3 = cfg['paibot']['positive_conclusion_3'].split("|")
-		self.positive_signature = cfg['paibot']['positive_signature'].split("|")
+		self.positive_signature = "\n\n" + cfg['paibot']['positive_signature'].split("|")
 		self.positive_complete = cfg['paibot']['positive_complete'].split("|")
 
 		self.positive = [self.positive_adjective,
@@ -73,7 +73,7 @@ class updateable:
 		self.negative_conclusion_1 = cfg['paibot']['negative_conclusion_1'].split("|")
 		self.negative_conclusion_2 = cfg['paibot']['negative_conclusion_2'].split("|")
 		self.negative_conclusion_3 = cfg['paibot']['negative_conclusion_3'].split("|")
-		self.negative_signature =  cfg['paibot']['negative_signature'].split("|")
+		self.negative_signature =  "\n\n" + cfg['paibot']['negative_signature'].split("|")
 		self.negative_complete = cfg['paibot']['negative_complete'].split("|")
 
 		self.negative = [self.negative_adjective,
@@ -106,7 +106,7 @@ class updateable:
 		self.answer_conclusion_1 = cfg['paibot']['answer_conclusion_1'].split("|")
 		self.answer_conclusion_2 = cfg['paibot']['answer_conclusion_2'].split("|")
 		self.answer_conclusion_3 = cfg['paibot']['answer_conclusion_3'].split("|")
-		self.answer_signature =  cfg['paibot']['answer_signature'].split("|")
+		self.answer_signature =  "\n\n" + cfg['paibot']['answer_signature'].split("|")
 		self.answer_complete = cfg['paibot']['answer_complete'].split("|")
 
 		self.answer = [self.answer_adjective,
