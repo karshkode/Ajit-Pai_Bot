@@ -82,7 +82,7 @@ class updateable:
 		for item in self.negative_signature:
 			item = "\n\n" + item
 			self.negative_signature[i] = item
-		self.negative_signature = cfg['paibot']['negative_complete'].split("|")
+		self.negative_complete = cfg['paibot']['negative_complete'].split("|")
 
 		self.negative = [self.negative_adjective,
 				self.negative_adverb,
