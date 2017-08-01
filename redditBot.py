@@ -34,8 +34,10 @@ class redditBot:
 		configFile = configparser.ConfigParser()
 		configFile.read('praw.ini')
 		subList = configFile['admins']['subreddits']
+		threadList = configFile['admins']['threads']
 		self.status = configFile['admins']['status']
 		self.subreddits = subList.split(",")
+		self.threads = threadList.split(",")
 		self.paibot = updateable.updateable()
 
 		return
@@ -211,19 +213,48 @@ class redditBot:
 	# Main function
 	def runCycle(self):
 
+		print('\n')
+		print("------------New Cycle------------\n")
+
 		if "idle" in self.status:
+			print("idle\n")
 			time.sleep(30)
 			return
 
-		try:
-			print('\n')
-			print("------------New Cycle------------\n")
+		# Add ability for bot to self post and store link in var for access later.
+		if "startthread" in self.status:
+			try:
+				cfg = configparser()
+				cfg.read("config.cfg")
+				threadTitle = cfg['thread']['title']
+				threadSelfText = cfg['thread']['selftext']
+				threadSelfText.replace("\\n\\n", "\n\n")
+				listOfThreads = ""
 
-			# Cycle through subreddits
-			for subredditName in self.subreddits:
+				for subredditName in self.subreddits:
+					subreddit = self.reddit.subreddit(subredditName)
 
-				# Determine single thread or entire subreddit
-				if "https://" in subredditName:
+					thread = subreddit.submit(threadTitle, selftext=threadSelfText, resubmit=True, send_replies=False)
+					trhead.permalink
+					print("Posted new thread: " + threadTitle + " -> " + thread.permalink)
+					if len(listOfThreads) == 0:
+						listOfThreads += thread.permalink
+					else:
+						listOfThreads = listOfThreads + "," + listOfThreads
+
+
+				configFile.read("praw.ini")
+				configFile.set('admins', 'status', 'ama')
+				configFile.set('admins', 'threads', listOfThreads)
+				with open("praw.ini", 'w') as file:
+					configFile.write(file)
+				print("Entered status ama")
+			except Exception as e:
+				print(e)
+
+		if "ama" in self.status:
+			try:
+				for submission in self.threads:
 					submission = self.reddit.submission(url=subredditName)
 
 					# Parse thread comments
@@ -232,10 +263,13 @@ class redditBot:
 							if comment.author is not None and comment.author != self.reddit.user.me():
 								self.parseText(comment, comment.body, False)
 
-					except Exception as e:
-						print(e)
+			except Exception as e:
+					print(e)
 
-				else:
+		else:
+			try:
+				# Cycle through subreddits
+				for subredditName in self.subreddits:
 					subreddit = self.reddit.subreddit(subredditName)
 
 					# Parse subreddit comments
