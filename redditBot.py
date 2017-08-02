@@ -210,16 +210,6 @@ class redditBot:
 			lineCount -= 1
 		return
 
-	def reloadConfig(self):
-		configFile = configparser.ConfigParser()
-		configFile.read('praw.ini')
-		subList = configFile['admins']['subreddits']
-		threadList = configFile['admins']['threads']
-		self.status = configFile['admins']['status']
-		self.subreddits = subList.split(",")
-		self.threads = threadList.split(",")
-		return
-
 	# Main function
 	def runCycle(self):
 
@@ -258,8 +248,7 @@ class redditBot:
 				configFile.set('admins', 'threads', listOfThreads)
 				with open("praw.ini", 'w') as file:
 					configFile.write(file)
-
-				reloadConfig()
+				self.status = "ama"
 				print("Entered status ama")
 			except Exception as e:
 				print(e)
