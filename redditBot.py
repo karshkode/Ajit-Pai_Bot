@@ -249,8 +249,8 @@ class redditBot:
 				with open("praw.ini", 'w') as file:
 					configFile.write(file)
 				self.status = "ama"
-				self.threads = str(listOfThreads)
-				print("Entered status ama")
+				self.threads = listOfThreads.split(",")
+				print("\nEntered status ama")
 			except Exception as e:
 				print(e)
 
