@@ -238,7 +238,7 @@ class redditBot:
 					threadURL = "https://www.reddit.com" + thread.permalink
 					print("Posted new thread: " + threadTitle + " -> " + threadURL)
 					if len(listOfThreads) == 0:
-						listOfThreads += thread.permalink
+						listOfThreads += threadURL
 					else:
 						listOfThreads = listOfThreads + "," + listOfThreads
 
