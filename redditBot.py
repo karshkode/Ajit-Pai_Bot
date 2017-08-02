@@ -240,7 +240,7 @@ class redditBot:
 					if len(listOfThreads) == 0:
 						listOfThreads += threadURL
 					else:
-						listOfThreads = listOfThreads + "," + listOfThreads
+						listOfThreads = listOfThreads + "," + threadURL
 
 				configFile = configparser.ConfigParser()
 				configFile.read("praw.ini")
@@ -249,7 +249,7 @@ class redditBot:
 				with open("praw.ini", 'w') as file:
 					configFile.write(file)
 				self.status = "ama"
-				self.threads = listOfThreads
+				self.threads = str(listOfThreads)
 				print("Entered status ama")
 			except Exception as e:
 				print(e)
