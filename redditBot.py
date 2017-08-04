@@ -8,6 +8,7 @@ import random
 import re
 import configparser
 import random
+import thread
 
 from subprocess import call
 
@@ -35,9 +36,12 @@ class redditBot:
 		configFile.read('praw.ini')
 		subList = configFile['admins']['subreddits']
 		threadList = configFile['admins']['threads']
+		threadSubsList = configFile['admins']['threadsubs']
 		self.status = configFile['admins']['status']
+		self.xPost = configFile['admins']['xpost']
 		self.subreddits = subList.split(",")
 		self.threads = threadList.split(",")
+		self.threadSubs = threadSubsList.split(",")
 		self.paibot = updateable.updateable()
 
 		return
@@ -210,6 +214,25 @@ class redditBot:
 			lineCount -= 1
 		return
 
+	# X-Post thread
+	def thread_xpost(self, threadURLs):
+
+		cfg = configparser.ConfigParser()
+		cfg.read("config.cfg")
+		threadTitle = cfg['thread']['xtitle']
+		threadSelfText = cfg['thread']['xselftext']
+		threadSelfText.replace("\\n\\n", "\n\n")
+		threadSelfText.replace("[URL]", threadURLs[0])
+
+		for subredditName in self.subreddits:
+			subreddit = self.reddit.subreddit(subredditName)
+			thread = subreddit.submit(threadTitle, selftext=threadSelfText, resubmit=True, send_replies=False)
+			threadURL = "https://www.reddit.com" + thread.permalink
+			print("X-Posted new thread: " + threadTitle + " -> " + threadURL)
+			time.sleep(720) # 12 minutes
+
+		return
+
 	# Main function
 	def runCycle(self):
 
@@ -231,7 +254,7 @@ class redditBot:
 				threadSelfText.replace("\\n\\n", "\n\n")
 				listOfThreads = ""
 
-				for subredditName in self.subreddits:
+				for subredditName in self.threadSubs:
 					subreddit = self.reddit.subreddit(subredditName)
 
 					thread = subreddit.submit(threadTitle, selftext=threadSelfText, resubmit=True, send_replies=False)
@@ -246,10 +269,16 @@ class redditBot:
 				configFile.read("praw.ini")
 				configFile.set('admins', 'status', 'ama')
 				configFile.set('admins', 'threads', listOfThreads)
+				
 				with open("praw.ini", 'w') as file:
 					configFile.write(file)
+				
 				self.status = "ama"
 				self.threads = listOfThreads.split(",")
+				
+				if self.xPost == "true":
+					thread.start_new_thread(thread_xpost,(self.threads))
+				
 				print("\nEntered status ama")
 			except Exception as e:
 				print(e)
