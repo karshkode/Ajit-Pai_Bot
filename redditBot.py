@@ -8,7 +8,7 @@ import random
 import re
 import configparser
 import random
-import thread
+import _thread
 
 from subprocess import call
 
@@ -277,7 +277,7 @@ class redditBot:
 				self.threads = listOfThreads.split(",")
 				
 				if self.xPost == "true":
-					thread.start_new_thread(thread_xpost,(self.threads))
+					_thread.start_new_thread(thread_xpost,(self.threads))
 				
 				print("\nEntered status ama")
 			except Exception as e:
