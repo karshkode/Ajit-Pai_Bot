@@ -222,14 +222,22 @@ class redditBot:
 		threadTitle = cfg['thread']['xtitle']
 		threadSelfText = cfg['thread']['xselftext']
 		threadSelfText.replace("\\n\\n", "\n\n")
-		threadSelfText.replace("[URL]", threadURLs[0])
+		urlText + ""
+		for url in threadURLs:
+			if len(urlText) <= 1:
+				urlText = url
+			else:
+				urlText = urlText + ", " + url
+		threadSelfText.replace("[URL]", urlText)
+
+		print("Launched X-Post code thread")
 
 		for subredditName in self.subreddits:
+			time.sleep(720) # 12 minutes
 			subreddit = self.reddit.subreddit(subredditName)
 			thread = subreddit.submit(threadTitle, selftext=threadSelfText, resubmit=True, send_replies=False)
 			threadURL = "https://www.reddit.com" + thread.permalink
 			print("X-Posted new thread: " + threadTitle + " -> " + threadURL)
-			time.sleep(720) # 12 minutes
 
 		return
 
