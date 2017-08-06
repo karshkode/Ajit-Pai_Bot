@@ -222,7 +222,7 @@ class redditBot:
 		threadTitle = cfg['thread']['xtitle']
 		threadSelfText = cfg['thread']['xselftext']
 		threadSelfText.replace("\\n\\n", "\n\n")
-		urlText + ""
+		urlText = ""
 		for url in threadURLs:
 			if len(urlText) <= 1:
 				urlText = url
