@@ -285,7 +285,7 @@ class redditBot:
 				self.threads = listOfThreads.split(",")
 				
 				if self.xPost == "true":
-					_thread.start_new_thread(self.thread_xpost,(self.threads))
+					_thread.start_new_thread(self.thread_xpost, (self.threads,))
 				
 				print("\nEntered status ama")
 			except Exception as e:
