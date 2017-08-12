@@ -42,7 +42,8 @@ class redditBot:
 		self.subreddits = subList.split(",")
 		self.threads = threadList.split(",")
 		self.threadSubs = threadSubsList.split(",")
-		self.paibot = updateable.updateable()
+		bottype = configFile['admins']['bottype']
+		self.paibot = updateable.updateable(bottype)
 
 		return
 		
