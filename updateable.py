@@ -21,7 +21,7 @@ class updateable:
 	def readConfig(self, bottype):
 
 		# Some config parsers to parse configs with
-		cfg = configparser.ConfigParser(bottype)
+		cfg = configparser.ConfigParser()
 		cfg.read('config.cfg')
 
 		# Positive: Pai supports the comment
